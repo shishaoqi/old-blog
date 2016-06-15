@@ -23,7 +23,7 @@
 			};
 	
 			toastr.info("You have been awarded with 1 year free subscription. Enjoy it!", "Account Subcription Updated", opts);
-		}, 3000);
+		}, 2000);
 		
 		// Charts
 		var xenonPalette = ['#68b828','#7c38bc','#0e62c7','#fcd036','#4fcdfc','#00b19d','#ff6264','#f7aa47'];

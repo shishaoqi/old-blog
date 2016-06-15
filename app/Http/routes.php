@@ -26,14 +26,19 @@ Route::group(['middleware' => ['web']], function () {
 
 Route::get('admin/login', 'Admin\AuthController@showLoginForm');
 Route::post('admin/login', 'Admin\AuthController@login');
+Route::get('admin/register', 'Admin\AuthController@getRegister');
+	Route::post('admin/register', 'Admin\AuthController@postRegister');
 Route::group(['middleware' => ['web', 'admin.auth:admin'], 'prefix' => 'admin', 'namespace' => 'Admin'], function () {
 	//admin.auth:admin
 	Route::get('', 'AdminController@index');
 	Route::get('logout', 'AuthController@logout');
-	Route::get('register', 'AuthController@getRegister');
-	Route::post('register', 'AuthController@postRegister');
 	Route::get('index', 'AdminController@index');
 
-	//Route::get('category/create{pid?}', 'CategoryController@create');
 	Route::resource('category', 'CategoryController');
+
+	/*Route::get('article/index', 'ArticleController@index');
+	Route::get('article/add', 'ArticleController@add');
+	Route::post('article/add', 'ArticleController@doAdd');
+	Route::get('article/edit', 'ArticleController@edit');*/
+	Route::resource('article', 'ArticleController');
 });

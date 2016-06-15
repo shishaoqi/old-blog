@@ -2430,7 +2430,7 @@ body.chat-open .user-info-navbar a[data-toggle="chat"] {
 .navbar.horizontal-menu .navbar-inner > .nav > li .dropdown-menu.user-profile-menu {
   right: -1px;
   left: auto;
-  width: 250px;
+  width: 150px;
 }
 .user-info-navbar .user-info-menu > li .dropdown-menu.user-profile-menu li,
 .navbar.horizontal-menu .navbar-inner > .nav > li .dropdown-menu.user-profile-menu li {
