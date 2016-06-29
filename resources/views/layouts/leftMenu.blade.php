@@ -13,7 +13,7 @@
                 </a>
             </li>
             <li>
-                <a href="dashboard-2.html">
+                <a href="{{url('admin/article')}}">
                     <span class="title">文章管理</span>
                 </a>
             </li>
