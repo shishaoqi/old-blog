@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Auth;
+use App\Models\Category;
+use App\Models\Posts;
 
 class ArticleController extends Controller
 {
@@ -16,7 +19,8 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        return view('admin.article.index');
+        $posts = Posts::paginate(2);
+        return view('admin.article.index')->with('posts', $posts);
     }
 
     /**
@@ -26,7 +30,11 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('admin.article.addArticle');
+        $admin = Auth::guard('admin')->user();
+        $cateList = Category::all()->toArray();
+        $cateList = listToTree($cateList);
+        //dd($cateList);
+        return view('admin.article.addArticle')->with('cateList', $cateList)->with('user_id', $admin['id']);
     }
 
     /**
@@ -37,7 +45,15 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //$post = $request->all();
+        $post = $request->all();
+        $post['content_html'] = $post['editor-md-html-code'];
+        $post['published_at'] = time();
+        //dd($post);
+        $postModel = new Posts;
+        if ($postModel->fill($post)->save()) {
+            return redirect('admin/article');
+        }
     }
 
     /**
@@ -59,7 +75,10 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Posts::find($id);
+        $cateList = Category::all()->toArray();
+        $cateList = listToTree($cateList);
+        return view('admin.article.edit')->with(compact('post','id', 'cateList'));
     }
 
     /**
@@ -71,7 +90,10 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post = $request->except('_token');
+        $post['content_html'] = $post['editor-md-html-code'];
+        $re = Posts::find($id)->fill($post)->save();
+        return redirect('admin/article');
     }
 
     /**

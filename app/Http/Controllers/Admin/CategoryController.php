@@ -46,8 +46,7 @@ class CategoryController extends Controller
         //$post = $request->all();
         $category = new Category;
         if ($category->fill($request->all())->save()) {
-            // 分类发生变化，更新分类数组
-            
+            // 分类发生变化，更新分类数组 
             return redirect('admin/category');
         }
     }

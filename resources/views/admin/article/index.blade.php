@@ -2,7 +2,7 @@
 <!-- Removing search and results count filter -->
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title">Removing search and results count filter</h3>
+        <h3 class="panel-title">文章列表</h3>
         <div class="panel-options">
             <a href="#" data-toggle="panel">
                 <a href="{{url('admin/article/create')}}">新增</a>
@@ -23,186 +23,39 @@
                     <th class="no-sorting">
                         <input type="checkbox" class="cbr">
                     </th>
-                    <th>Student Name</th>
-                    <th>Average Grade</th>
-                    <th>Curriculum / Occupation</th>
-                    <th>Actions</th>
+                    <th>标题</th>
+                    <th>分类</th>
+                    <th>发布时间</th>
+                    <th>操作</th>
                 </tr>
             </thead>
             <tbody class="middle-align">
+                @if($posts) 
+                @foreach($posts as $item)
                 <tr>
                     <td>
                         <input type="checkbox" class="cbr">
                     </td>
-                    <td>Randy S. Smith</td>
-                    <td>8.7</td>
-                    <td>Social and human service</td>
+                    <td>{{$item['title']}}</td>
+                    <td>{{$item['cate_id']}}</td>
+                    <td>{{$item['published_at']}}</td>
                     <td>
-                        <a href="#" class="btn btn-secondary btn-sm btn-icon icon-left">
-                            Edit
+                        <a href="{{url('admin/article/'.$item["id"].'/edit')}}" class="btn btn-secondary btn-sm btn-icon icon-left">
+                            编辑
                         </a>
                         <a href="#" class="btn btn-danger btn-sm btn-icon icon-left">
-                            Delete
+                            删除
                         </a>
                         <a href="#" class="btn btn-info btn-sm btn-icon icon-left">
                             Profile
                         </a>
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox" class="cbr">
-                    </td>
-                    <td>Ellen C. Jones</td>
-                    <td>7.2</td>
-                    <td>Education and development manager</td>
-                    <td>
-                        <a href="#" class="btn btn-secondary btn-sm btn-icon icon-left">
-                            Edit
-                        </a>
-                        <a href="#" class="btn btn-danger btn-sm btn-icon icon-left">
-                            Delete
-                        </a>
-                        <a href="#" class="btn btn-info btn-sm btn-icon icon-left">
-                            Profile
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox" class="cbr">
-                    </td>
-                    <td>Carl D. Kaya</td>
-                    <td>9.5</td>
-                    <td>Express Merchant Service</td>
-                    <td>
-                        <a href="#" class="btn btn-secondary btn-sm btn-icon icon-left">
-                            Edit
-                        </a>
-                        <a href="#" class="btn btn-danger btn-sm btn-icon icon-left">
-                            Delete
-                        </a>
-                        <a href="#" class="btn btn-info btn-sm btn-icon icon-left">
-                            Profile
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox" class="cbr">
-                    </td>
-                    <td>Jennifer J. Jefferson</td>
-                    <td>10</td>
-                    <td>Maxillofacial surgeon</td>
-                    <td>
-                        <a href="#" class="btn btn-secondary btn-sm btn-icon icon-left">
-                            Edit
-                        </a>
-                        <a href="#" class="btn btn-danger btn-sm btn-icon icon-left">
-                            Delete
-                        </a>
-                        <a href="#" class="btn btn-info btn-sm btn-icon icon-left">
-                            Profile
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox" class="cbr">
-                    </td>
-                    <td>April L. Baker <span class="label label-success">New Applicant</span></td>
-                    <td>6.8</td>
-                    <td>Set and exhibit designer</td>
-                    <td>
-                        <a href="#" class="btn btn-secondary btn-sm btn-icon icon-left">
-                            Edit
-                        </a>
-                        <a href="#" class="btn btn-danger btn-sm btn-icon icon-left">
-                            Delete
-                        </a>
-                        <a href="#" class="btn btn-info btn-sm btn-icon icon-left">
-                            Profile
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox" class="cbr">
-                    </td>
-                    <td>Lillian J. Earl</td>
-                    <td>7.6</td>
-                    <td>Social and human service assistant</td>
-                    <td>
-                        <a href="#" class="btn btn-secondary btn-sm btn-icon icon-left">
-                            Edit
-                        </a>
-                        <a href="#" class="btn btn-danger btn-sm btn-icon icon-left">
-                            Delete
-                        </a>
-                        <a href="#" class="btn btn-info btn-sm btn-icon icon-left">
-                            Profile
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox" class="cbr">
-                    </td>
-                    <td>Ellen C. Jones</td>
-                    <td>7.2</td>
-                    <td>Education and development manager</td>
-                    <td>
-                        <a href="#" class="btn btn-secondary btn-sm btn-icon icon-left">
-                            Edit
-                        </a>
-                        <a href="#" class="btn btn-danger btn-sm btn-icon icon-left">
-                            Delete
-                        </a>
-                        <a href="#" class="btn btn-info btn-sm btn-icon icon-left">
-                            Profile
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox" class="cbr">
-                    </td>
-                    <td>Randy S. Smith</td>
-                    <td>8.7</td>
-                    <td>Social and human service</td>
-                    <td>
-                        <a href="#" class="btn btn-secondary btn-sm btn-icon icon-left">
-                            Edit
-                        </a>
-                        <a href="#" class="btn btn-danger btn-sm btn-icon icon-left">
-                            Delete
-                        </a>
-                        <a href="#" class="btn btn-info btn-sm btn-icon icon-left">
-                            Profile
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="checkbox" class="cbr">
-                    </td>
-                    <td>Jennifer J. Jefferson</td>
-                    <td>10</td>
-                    <td>Maxillofacial surgeon</td>
-                    <td>
-                        <a href="#" class="btn btn-secondary btn-sm btn-icon icon-left">
-                            Edit
-                        </a>
-                        <a href="#" class="btn btn-danger btn-sm btn-icon icon-left">
-                            Delete
-                        </a>
-                        <a href="#" class="btn btn-info btn-sm btn-icon icon-left">
-                            Profile
-                        </a>
-                    </td>
-                </tr>
+                @endforeach 
+                @endif
             </tbody>
         </table>
+        {!! $posts->links() !!}
     </div>
 </div>
 @endsection

@@ -15,13 +15,13 @@
                 </div>
             </div>
             <div class="panel-body">
-                <form role="form" class="form-horizontal" action="{{url('admin/article')}}" method="post">
+                <form role="form" class="form-horizontal" action="{{url('admin/article/'.$post['id'])}}" method="post">
+                    <input type="hidden" class="form-control" id="field-20" name="_method" value="put">
                     <?php echo csrf_field(); ?>
-                    <input type="hidden" name="user_id" value="{{$user_id}}">
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="field-1">标题</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="field-1" name="title" placeholder="标题">
+                            <input type="text" class="form-control" id="field-1" name="title" value="{{$post['title']}}">
                         </div>
                     </div>
                     
@@ -29,7 +29,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="field-2">标签</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="field-2" name="slug" placeholder="标签&hellip;">
+                            <input type="text" class="form-control" id="field-2" name="slug" value="{{$post['slug']}}">
                             <!-- <p class="help-block">Example block-level help text here. Emails inputs are validated on native HTML5 forms.</p> -->
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="field-5">摘要</label>
                         <div class="col-sm-10">
-                            <textarea class="form-control" cols="5" id="field-5" name="excerpt"></textarea>
+                            <textarea class="form-control" cols="5" id="field-5" name="excerpt">{{$post['excerpt']}}</textarea>
                         </div>
                     </div>
                     
@@ -57,13 +57,13 @@
                             <select class="form-control" name="cate_id">
                                 @if($cateList) 
                                 @foreach($cateList as $item)
-                                <option value="{{$item['id']}}">{{$item['name']}}</option>
+                                <option value="{{$item['id']}}" @if($item['id'] == $post['cate_id']) "selected" @endif>{{$item['name']}}</option>
                                     @if(isset($item['_child']))
                                     @foreach($item['_child'] as $v)
-                                    <option value="{{$v['id']}}">&nbsp;&nbsp;&nbsp;&nbsp;|__{{$v['name']}}</option>
+                                    <option value="{{$v['id']}}" @if($v['id'] == $post['cate_id']) "selected" @endif>>&nbsp;&nbsp;&nbsp;&nbsp;|__{{$v['name']}}</option>
                                         @if(isset($v['_child']))
                                         @foreach($v['_child'] as $vo)
-                                        <option value="{{$vo['id']}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|_____{{$vo['name']}}</option>
+                                        <option value="{{$vo['id']}}" @if($vo['id'] == $post['cate_id']) "selected" @endif>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|_____{{$vo['name']}}</option>
                                         @endforeach
                                         @endif    
                                     @endforeach
@@ -79,7 +79,7 @@
                         <!-- <label class="col-sm-2 control-label">Select list</label> -->
                         <div class="col-sm-12">
                             <div id="editor-md">
-                                <textarea style="display:none;" name="content_mark_down"></textarea>
+                                <textarea style="display:none;" name="content_mark_down">{{$post['content_mark_down']}}</textarea>
                             </div>
                         </div>
                     </div>
