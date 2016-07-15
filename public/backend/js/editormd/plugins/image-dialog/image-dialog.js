@@ -46,8 +46,8 @@
                     action += "&callback=" + settings.uploadCallbackURL + "&dialog_id=editormd-image-dialog-" + guid;
                 }
 
-                var dialogContent = ( (settings.imageUpload) ? "<form action=\"" + action +"\" target=\"" + iframeName + "\" method=\"post\" enctype=\"multipart/form-data\" class=\"" + classPrefix + "form\">" : "<div class=\"" + classPrefix + "form\">" ) +
-                                        ( (settings.imageUpload) ? "<iframe name=\"" + iframeName + "\" id=\"" + iframeName + "\" guid=\"" + guid + "\"></iframe>" : "" ) +
+                var dialogContent = ( (settings.imageUpload) ? "<form action=\"" + action +"\" target=\"" + iframeName + "\" id=\"" + iframeName + "\" method=\"post\" enctype=\"multipart/form-data\" class=\"" + classPrefix + "form\">" : "<div class=\"" + classPrefix + "form\">" ) +
+                                        ( (settings.imageUpload) ? "<iframe name=\"" + iframeName + "\"  guid=\"" + guid + "\"></iframe>" : "" ) +
                                         "<label>" + imageLang.url + "</label>" +
                                         "<input type=\"text\" data-url />" + (function(){
                                             return (settings.imageUpload) ? "<div class=\"" + classPrefix + "file-input\">" +
@@ -61,6 +61,7 @@
                                         "<br/>" +
                                         "<label>" + imageLang.link + "</label>" +
                                         "<input type=\"text\" value=\"http://\" data-link />" +
+                                        "<input type=\"hidden\" name=\"_token\" value=\""+settings.tokens+"\" />" +
                                         "<br/>" +
                                     ( (settings.imageUpload) ? "</form>" : "</div>");
 
@@ -80,12 +81,12 @@
                         backgroundColor : settings.dialogMaskBgColor
                     },
                     buttons : {
-                        enter : [lang.buttons.enter, function() {
+                        enter : [lang.buttons.enter, function() {//确定
                             var url  = this.find("[data-url]").val();
                             var alt  = this.find("[data-alt]").val();
                             var link = this.find("[data-link]").val();
 
-                            if (url === "")
+                            if (url === "" && (link === "http://" || link === ''))
                             {
                                 alert(imageLang.imageURLEmpty);
                                 return false;
@@ -111,7 +112,7 @@
                             return false;
                         }],
 
-                        cancel : [lang.buttons.cancel, function() {
+                        cancel : [lang.buttons.cancel, function() {//取消
                             this.hide().lockScreen(false).hideMask();
 
                             return false;
@@ -149,7 +150,7 @@
 
                     var submitHandler = function() {
 
-                        var uploadIframe = document.getElementById(iframeName);
+                        /*var uploadIframe = document.getElementById(iframeName);
 
                         uploadIframe.onload = function() {
 
@@ -157,23 +158,43 @@
 
                             var body = (uploadIframe.contentWindow ? uploadIframe.contentWindow : uploadIframe.contentDocument).document.body;
                             var json = (body.innerText) ? body.innerText : ( (body.textContent) ? body.textContent : null);
+                            //alert(json);
 
                             json = (typeof JSON.parse !== "undefined") ? JSON.parse(json) : eval("(" + json + ")");
 
                             if(!settings.crossDomainUpload)
                             {
-                              if (json.success === 1)
-                              {
-                                  dialog.find("[data-url]").val(json.url);
-                              }
-                              else
-                              {
-                                  alert(json.message);
-                              }
+                                if (json.success === 1)
+                                {
+                                    dialog.find("[data-url]").val(json.url);
+                                } else {
+                                    alert(json.message);
+                                }
                             }
+                            var form = $('#'+iframeName);
+                            alert(form.formSerialize());
+                            $.ajax({
+                                url: form.action,
+                                type: form.method,
+                                data: form.formSerialize(),
+                                success: function(data){
+                                    alert(data);
+                                }
+                            });
+
 
                             return false;
-                        };
+                        };*/
+                        var form = $('#'+iframeName);
+                            alert(form.serialize());
+                            $.ajax({
+                                url: form.action,
+                                type: form.method,
+                                data: {'file': fileName, '_token': settings.tokens},
+                                success: function(data){
+                                    alert(data);
+                                }
+                            });
                     };
 
                     dialog.find("[type=\"submit\"]").bind("click", submitHandler).trigger("click");

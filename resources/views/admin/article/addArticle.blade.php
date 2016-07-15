@@ -99,11 +99,12 @@
     </div>
 </div>
 <link rel="stylesheet" href="{{asset('backend/js/editormd/css/editormd.css')}}" />
+
 <script src="{{asset('backend/js/editormd/editormd.js')}}"></script>
 <script type="text/javascript">
     var testEditor;
-
-    $(function() {
+    var tokens = $('form input:eq(1)').val();
+    $(function() {        
         testEditor = editormd("editor-md", {
             width   : "90%",
             height  : 640,
@@ -114,7 +115,8 @@
             emoji:true,
             saveHTMLToTextarea:true,
             imageUpload : true,
-            imageUploadURL : '/admin/article/upload'
+            imageUploadURL : '/admin/article/uploadImg',
+            tokens : tokens
         });
         
         /*

@@ -89,6 +89,7 @@
     };
     
     editormd.defaults     = {
+        tokens               : "",
         mode                 : "gfm",          //gfm or markdown
         name                 : "",             // Form element name
         value                : "",             // value for CodeMirror, if mode not gfm/markdown

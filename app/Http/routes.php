@@ -27,7 +27,8 @@ Route::group(['middleware' => ['web']], function () {
 Route::get('admin/login', 'Admin\AuthController@showLoginForm');
 Route::post('admin/login', 'Admin\AuthController@login');
 Route::get('admin/register', 'Admin\AuthController@getRegister');
-	Route::post('admin/register', 'Admin\AuthController@postRegister');
+Route::post('admin/register', 'Admin\AuthController@postRegister');
+
 Route::group(['middleware' => ['web', 'admin.auth:admin'], 'prefix' => 'admin', 'namespace' => 'Admin'], function () {
 	//admin.auth:admin
 	Route::get('', 'AdminController@index');
@@ -40,5 +41,6 @@ Route::group(['middleware' => ['web', 'admin.auth:admin'], 'prefix' => 'admin', 
 	Route::get('article/add', 'ArticleController@add');
 	Route::post('article/add', 'ArticleController@doAdd');
 	Route::get('article/edit', 'ArticleController@edit');*/
+	Route::post('article/uploadImg/{guid}', 'ArticleController@uploadImg');
 	Route::resource('article', 'ArticleController');
 });

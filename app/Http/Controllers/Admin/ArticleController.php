@@ -106,4 +106,25 @@ class ArticleController extends Controller
     {
         //
     }
+
+    public function uploadImg($guid){
+        $file = Input::file('file');
+        $id = $guid; //Input::get('id');
+        $allowed_extensions = ["png", "jpg", "gif"];
+        if ($file->getClientOriginalExtension() && !in_array($file->getClientOriginalExtension(), $allowed_extensions)) {
+            return ['error' => 'You may only upload png, jpg or gif.'];
+        }
+
+        $destinationPath = 'uploads/images/';
+        $extension = $file->getClientOriginalExtension();
+        $fileName = str_random(10).'.'.$extension;
+        $file->move($destinationPath, $fileName);
+        return Response::json(
+            [
+                'success' => true,
+                'url' => asset($destinationPath.$fileName),
+                'id' => $id
+            ]
+        );
+    }
 }
