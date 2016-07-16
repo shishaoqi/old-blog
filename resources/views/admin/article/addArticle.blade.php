@@ -115,7 +115,7 @@
             emoji:true,
             saveHTMLToTextarea:true,
             imageUpload : true,
-            imageUploadURL : '/admin/article/uploadImg',
+            imageUploadURL : "{{url('/admin/article/uploadImg')}}",
             tokens : tokens
         });
         

@@ -39,15 +39,15 @@
             if (editor.find("." + dialogName).length < 1)
             {
                 var guid   = (new Date).getTime();
-                var action = settings.imageUploadURL + (settings.imageUploadURL.indexOf("?") >= 0 ? "&" : "?") + "guid=" + guid;
+                var action = settings.imageUploadURL + (settings.imageUploadURL.indexOf("?") >= 0 ? "&" : "?")+ "guid=" + guid;
 
                 if (settings.crossDomainUpload)
                 {
                     action += "&callback=" + settings.uploadCallbackURL + "&dialog_id=editormd-image-dialog-" + guid;
                 }
 
-                var dialogContent = ( (settings.imageUpload) ? "<form action=\"" + action +"\" target=\"" + iframeName + "\" id=\"" + iframeName + "\" method=\"post\" enctype=\"multipart/form-data\" class=\"" + classPrefix + "form\">" : "<div class=\"" + classPrefix + "form\">" ) +
-                                        ( (settings.imageUpload) ? "<iframe name=\"" + iframeName + "\"  guid=\"" + guid + "\"></iframe>" : "" ) +
+                var dialogContent = ( (settings.imageUpload) ? "<form action=\"" + action +"\" target=\"" + iframeName + "\"  method=\"post\" enctype=\"multipart/form-data\" class=\"" + classPrefix + "form\"><input type=\"hidden\" name=\"_token\" value=\""+settings.tokens+"\" />" : "<div class=\"" + classPrefix + "form\">" ) +
+                                        ( (settings.imageUpload) ? "<iframe name=\"" + iframeName + "\" id=\"" + iframeName + "\"  guid=\"" + guid + "\"></iframe>" : "" ) +
                                         "<label>" + imageLang.url + "</label>" +
                                         "<input type=\"text\" data-url />" + (function(){
                                             return (settings.imageUpload) ? "<div class=\"" + classPrefix + "file-input\">" +
@@ -61,7 +61,6 @@
                                         "<br/>" +
                                         "<label>" + imageLang.link + "</label>" +
                                         "<input type=\"text\" value=\"http://\" data-link />" +
-                                        "<input type=\"hidden\" name=\"_token\" value=\""+settings.tokens+"\" />" +
                                         "<br/>" +
                                     ( (settings.imageUpload) ? "</form>" : "</div>");
 
@@ -150,7 +149,7 @@
 
                     var submitHandler = function() {
 
-                        /*var uploadIframe = document.getElementById(iframeName);
+                        var uploadIframe = document.getElementById(iframeName);
 
                         uploadIframe.onload = function() {
 
@@ -158,7 +157,6 @@
 
                             var body = (uploadIframe.contentWindow ? uploadIframe.contentWindow : uploadIframe.contentDocument).document.body;
                             var json = (body.innerText) ? body.innerText : ( (body.textContent) ? body.textContent : null);
-                            //alert(json);
 
                             json = (typeof JSON.parse !== "undefined") ? JSON.parse(json) : eval("(" + json + ")");
 
@@ -171,30 +169,9 @@
                                     alert(json.message);
                                 }
                             }
-                            var form = $('#'+iframeName);
-                            alert(form.formSerialize());
-                            $.ajax({
-                                url: form.action,
-                                type: form.method,
-                                data: form.formSerialize(),
-                                success: function(data){
-                                    alert(data);
-                                }
-                            });
-
 
                             return false;
-                        };*/
-                        var form = $('#'+iframeName);
-                            alert(form.serialize());
-                            $.ajax({
-                                url: form.action,
-                                type: form.method,
-                                data: {'file': fileName, '_token': settings.tokens},
-                                success: function(data){
-                                    alert(data);
-                                }
-                            });
+                        };
                     };
 
                     dialog.find("[type=\"submit\"]").bind("click", submitHandler).trigger("click");

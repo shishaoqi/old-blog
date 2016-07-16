@@ -107,24 +107,31 @@ class ArticleController extends Controller
         //
     }
 
-    public function uploadImg($guid){
-        $file = Input::file('file');
-        $id = $guid; //Input::get('id');
-        $allowed_extensions = ["png", "jpg", "gif"];
-        if ($file->getClientOriginalExtension() && !in_array($file->getClientOriginalExtension(), $allowed_extensions)) {
-            return ['error' => 'You may only upload png, jpg or gif.'];
-        }
+    public function uploadImg(Request $request){
+        $file = $request->file('editormd-image-file');
+        
+        if($file->isValid()){
+            $allowed_extensions = ["png", "jpg", "gif"];
+            $extension = $file->getClientOriginalExtension();
+            if ($extension && !in_array($extension, $allowed_extensions)) {
+                return ['error' => 'You may only upload png, jpg or gif.'];
+            }
 
-        $destinationPath = 'uploads/images/';
-        $extension = $file->getClientOriginalExtension();
-        $fileName = str_random(10).'.'.$extension;
-        $file->move($destinationPath, $fileName);
-        return Response::json(
-            [
-                'success' => true,
-                'url' => asset($destinationPath.$fileName),
-                'id' => $id
-            ]
-        );
+            $destinationPath = base_path() . '/public/uploads/images/';
+            if(!is_dir($destinationPath)){
+                mkdir($destinationPath, 0777, true);
+            }
+            //dd($destinationPath);
+            
+            $fileName = date('YmdHis') . '_' . mt_rand(100, 999).'.'.$extension;
+            $file->move($destinationPath, $fileName);
+            $filePath = '/uploads/images/' . $fileName;
+            echo json_encode(
+                [
+                    'success' => 1,
+                    'url' =>  asset($filePath)
+                ]
+            );
+        }
     }
 }

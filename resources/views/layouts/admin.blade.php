@@ -7,7 +7,7 @@
     <meta name="description" content="Xenon Boostrap Admin Panel" />
     <meta name="author" content="" />
     <title>Xenon - Dashboard</title>
-    <link rel="stylesheet" href="http://fonts.useso.com/css?family=Arimo:400,700,400italic">
+   <!--  <link rel="stylesheet" href="http://fonts.useso.com/css?family=Arimo:400,700,400italic"> -->
     <link rel="stylesheet" href="{{asset('backend/css/fonts/linecons/css/linecons.css')}}">
     <link rel="stylesheet" href="{{asset('backend/css/fonts/fontawesome/css/font-awesome.min.css')}}">
     <link rel="stylesheet" href="{{asset('backend/css/bootstrap.css')}}">
