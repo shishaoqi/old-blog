@@ -104,6 +104,7 @@
 <script type="text/javascript">
     var testEditor;
     var tokens = $('form input:eq(1)').val();
+    
     $(function() {        
         testEditor = editormd("editor-md", {
             width   : "90%",

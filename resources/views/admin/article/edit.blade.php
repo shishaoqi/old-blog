@@ -16,8 +16,8 @@
             </div>
             <div class="panel-body">
                 <form role="form" class="form-horizontal" action="{{url('admin/article/'.$post['id'])}}" method="post">
-                    <input type="hidden" class="form-control" id="field-20" name="_method" value="put">
                     <?php echo csrf_field(); ?>
+                    <input type="hidden" class="form-control" id="field-20" name="_method" value="put">
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="field-1">标题</label>
                         <div class="col-sm-10">
@@ -102,6 +102,7 @@
 <script src="{{asset('backend/js/editormd/editormd.js')}}"></script>
 <script type="text/javascript">
     var testEditor;
+    var tokens = $('form input:eq(1)').val();
 
     $(function() {
         testEditor = editormd("editor-md", {
@@ -114,7 +115,8 @@
             emoji:true,
             saveHTMLToTextarea:true,
             imageUpload : true,
-            imageUploadURL : '/admin/article/upload'
+            imageUploadURL : "{{url('/admin/article/uploadImg')}}",
+            tokens : tokens
         });
         
         /*

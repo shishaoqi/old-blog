@@ -42,6 +42,5 @@ Route::group(['middleware' => ['web', 'admin.auth:admin'], 'prefix' => 'admin', 
 	Route::post('article/add', 'ArticleController@doAdd');
 	Route::get('article/edit', 'ArticleController@edit');*/
 	Route::post('article/uploadImg/{guid?}', 'ArticleController@uploadImg');
-	Route::get('article/uploadImg/{guid?}', 'ArticleController@uploadImg');
 	Route::resource('article', 'ArticleController');
 });
