@@ -13,9 +13,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\SomeEvent' => [
-            'App\Listeners\EventListener',
-        ],
+        //'App\Events\SomeEvent' => ['App\Listeners\EventListener'],
+        'App\Events\Postsaved' => ['App\Listeners\SaveDataToCache']
     ];
 
     /**

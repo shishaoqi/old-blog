@@ -9,6 +9,9 @@ use App\Http\Controllers\Controller;
 use Auth;
 use App\Models\Category;
 use App\Models\Posts;
+use Event;
+use App\Events\Postsaved;
+use App\Listeners\SaveDataToCache;
 
 class ArticleController extends Controller
 {
@@ -52,6 +55,7 @@ class ArticleController extends Controller
         //dd($post);
         $postModel = new Posts;
         if ($postModel->fill($post)->save()) {
+            Event::fire(new PostSaved($postModel));
             return redirect('admin/article');
         }
     }
@@ -90,9 +94,14 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $postModel = Posts::find($id);
+        if(!$postModel)  exit('指定文章不存在！');
+
         $post = $request->except('_token');
         $post['content_html'] = $post['editor-md-html-code'];
-        $re = Posts::find($id)->fill($post)->save();
+        $re = $postModel->fill($post)->save();
+        Event::fire(new PostSaved($postModel));
+
         return redirect('admin/article');
     }
 
