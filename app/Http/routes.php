@@ -20,7 +20,7 @@ Route::group(['middleware' => ['web']], function () {
 	});
 
 	Route::auth(); //定义了注册登录路由
-	Route::get('/home', 'HomeController@index');
+	Route::get('/home', 'Front\HomeController@index');
 });
 
 

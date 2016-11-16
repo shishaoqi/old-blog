@@ -3,3 +3,9 @@ Laravel 使用 服务容器 解析所有的 Laravel控制器，因此，可以�
 
 
  composer dump-autoload 
+
+生成控制器
+php artisan make:controller /Front/HomeController
+
+使用RESTFUL生成控制器（自动生成index、create、store、show、edit、update、destory方法）
+php artisan make:controller PostController --resource
