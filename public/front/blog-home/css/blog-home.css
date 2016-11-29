@@ -9,5 +9,20 @@ body {
 }
 
 footer {
-    margin: 50px 0;
+    margin: 10px 0;
+}
+
+.pull-left{
+    margin-right:24px;
+}
+
+.entry {
+
+}
+
+.entry-excerpt{
+}
+
+.entry-excerpt p {
+    line-height: 24px;
 }

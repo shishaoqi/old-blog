@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{{asset('front/blog-home/css/bootstrap.min.css')}}">
 
     <!-- Custom CSS -->
-    <link href={{asset('front/blog-home/css/blog-home.css')}}">
+    <link rel="stylesheet" href="{{asset('front/blog-home/css/blog-home.css')}}">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -61,7 +61,7 @@
     </nav>
 
     <!-- Page Content -->
-    <div class="container" style="margin-top:60px;">
+    <div class="container">
 
         <div class="row">
 
@@ -74,13 +74,10 @@
                 </h1>
 
                 <!-- First Blog Post -->
-                <h2>
-                    <a href="#">Blog Post Title</a>
-                </h2>
-                <p class="lead">
-                    by <a href="index.php">Start Bootstrap</a>
+                <h2><a href="#">Blog Post Title</a></h2>
+                <p>
+                    <span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:00 PM by <a href="index.php">Start Bootstrap</a>
                 </p>
-                <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:00 PM</p>
                 <hr>
                 <div class="pull-left kb-thumb-medium hidden-xs">
                     <a class="thumbnail" rel="bookmark" href="http://laravelacademy.org/post/6534.html">
@@ -90,9 +87,53 @@
                 <div class="entry entry-excerpt">
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis ipsum officiis rerum.</p>
                 </div>
-                <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <!-- <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a> -->
                 <div class="clearfix"></div>
-                <hr>
+                
+                <footer class="entry-meta">
+                    <p class="visible-xs">
+                        <!-- <a class="btn btn-primary btn-block" rel="bookmark" href="http://laravelacademy.org/post/6521.html">
+                        <i class="glyphicon glyphicon-link"></i>
+                        阅读全文
+                        </a> -->
+                        <a class="btn btn-primary btn-block" href="#">阅读全文<span class="glyphicon glyphicon-chevron-right"></span></a>
+                    </p>
+                    <p class="pull-right hidden-xs">
+                        <!-- <a class="btn btn-primary" rel="bookmark" href="http://laravelacademy.org/post/6521.html">
+                        <i class="glyphicon glyphicon-link"></i>
+                        阅读全文
+                        </a> -->
+                        <a class="btn btn-primary" href="#">阅读全文<span class="glyphicon glyphicon-chevron-right"></span></a>
+                    </p>
+                    <p class="text-muted hidden-xs meta-data">
+                        <span class="cat-links">
+                            <i class="glyphicon glyphicon-folder-open"></i>
+                              分类：
+                            <a href="http://laravelacademy.org/project/packages" rel="category tag">扩展包</a>
+                        </span>
+                        <span class="tags-links">
+                            <i class="glyphicon glyphicon-tags"></i>
+                            标签：
+                            <a href="http://laravelacademy.org/tags/blade" rel="tag">Blade</a>
+                            ,
+                            <a href="http://laravelacademy.org/tags/jigsaw" rel="tag">Jigsaw</a>
+                            ,
+                            <a href="http://laravelacademy.org/tags/laravel" rel="tag">Laravel</a>
+                            ,
+                            <a href="http://laravelacademy.org/tags/%e5%b8%83%e5%b1%80" rel="tag">布局</a>
+                            ,
+                            <a href="http://laravelacademy.org/tags/%e8%a7%86%e5%9b%be" rel="tag">视图</a>
+                            ,
+                            <a href="http://laravelacademy.org/tags/%e9%9d%99%e6%80%81%e7%ab%99%e7%82%b9" rel="tag">静态站点</a>
+                        </span>
+                        <span class="comments-link">
+                            <i class="glyphicon ipt-icon-bubbles2"></i>
+                            <a class="ds-thread-count" href="http://laravelacademy.org/post/6521.html#respond" data-thread-key="6521">暂无评论</a>
+                        </span>
+                    </p>
+                    <div class="clearfix"></div>
+                </footer>
+                <!-- <hr> -->
 
                 <!-- Second Blog Post -->
                 <h2>
