@@ -95,46 +95,48 @@
     </div>
 </div>
 <script type="text/javascript">
-function showAjaxModal(id) {
-    var title = '提示';
-    var response = "确定删除此分类"
+    function showAjaxModal(id) {
+        var title = '提示';
+        var response = "确定删除此分类"
 
-    $('#modal-7 .modal-title').html(title);
-    $('#modal-7 .modal-body').html(response);
-    $('#modal-7 .btn-white').html('取消');
-    $('#modal-7 .btn-info').html('确定');
-    $('#modal-7').modal('show', {
-        backdrop: 'static'
-    });
+        $('#modal-7 .modal-title').html(title);
+        $('#modal-7 .modal-body').html(response);
+        $('#modal-7 .btn-white').html('取消');
+        $('#modal-7 .btn-info').html('确定');
+        $('#modal-7').modal('show', {
+            backdrop: 'static'
+        });
 
-    $('#modal-7 .btn-info').on('click', function() {
-        $.ajax({
-            type: "POST",
-            url: "{{url('admin/category')}}/" + id,
-            data: {
-                '_method': 'delete',
-                '_token': "{{csrf_token()}}"
-            },
-            success: function(data) {
-                if (data.status == 1) {
-                    alert(data.msg);
-                } else {
-                    alert(data.msg);
+        $('#modal-7 .btn-info').on('click', function() {
+            $.ajax({
+                type: "POST",
+                url: "{{url('admin/category')}}/" + id,
+                data: {
+                    '_method': 'delete',
+                    '_token': "{{csrf_token()}}"
+                },
+                success: function(data) {
+                    if (data.status == 1) {
+                        //alert(data.msg);
+                        $('#modal-7').modal('hide');
+                    } else {
+                        alert(data.msg);
+                    }
+                },
+                error: function(msg) {
+                    alert('error2');
                 }
-            },
-            error: function(msg) {
-                alert('error2');
-            }
+            })
         })
-    })
-}
+    }
 
-$(document).on('click', '.editCate', function() {
-    var url = $(this).attr('data-href');
+    $(document).on('click', '.editCate', function() {
+        var url = $(this).attr('data-href');
 
 
-});
+    });
 </script>
+
 <script type="text/javascript">
 jQuery(document).ready(function($) {
     $("#nestable-list-1").on('nestable-stop', function(ev) {

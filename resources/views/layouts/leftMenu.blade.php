@@ -18,7 +18,7 @@
                 </a>
             </li>
             <li>
-                <a href="dashboard-3.html">
+                <a href="{{url('admin/tag')}}">
                     <span class="title">标签管理</span>
                 </a>
             </li>
