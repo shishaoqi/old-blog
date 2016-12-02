@@ -176,6 +176,8 @@
     <div class="page-loading-overlay">
         <div class="loader-2"></div>
     </div>
+
+    
     <!-- Modal 7 (Ajax Modal)-->
     <div class="modal fade" id="modal-7">
         <div class="modal-dialog">

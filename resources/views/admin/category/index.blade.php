@@ -43,7 +43,7 @@
                         @if(isset($item['_child']))
                         <ul>
                             @foreach($item['_child'] as $v)
-                            <li data-item="Item {{$item['id']}}-{{$v['id']}}" data-item-id="g">
+                            <li data-item="Item {{$item['id']}}-{{$v['id']}}" data-item-id="g" id="category-id-{{$item['id']}}-{{$v['id']}}">
                                 <div class="uk-nestable-item">
                                     <div class="uk-nestable-handle"></div>
                                     <div data-nestable-action="toggle"></div>
@@ -62,7 +62,7 @@
                                 @if(isset($v['_child']))
                                 <ul>
                                     @foreach($v['_child'] as $vo)
-                                    <li data-item="Item {{$item['id']}}-{{$v['id']}}-{{$vo['id']}}" data-item-id="h">
+                                    <li data-item="Item {{$item['id']}}-{{$v['id']}}-{{$vo['id']}}" data-item-id="h" id="category-id-{{$item['id']}}-{{$v['id']}}-{{$vo['id']}}">
                                         <div class="uk-nestable-item">
                                             <div class="uk-nestable-handle"></div>
                                             <div data-nestable-action="toggle"></div>
@@ -119,6 +119,7 @@
                     if (data.status == 1) {
                         //alert(data.msg);
                         $('#modal-7').modal('hide');
+                        alert($(this).parent().parent().parent().html());
                     } else {
                         alert(data.msg);
                     }
