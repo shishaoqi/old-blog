@@ -34,7 +34,7 @@
                                     <i class="fa fa-pencil"></i>
                                 </a>
                                 @if(!isset($item['_child']))
-                                <a class="btn-xs tooltips" onclick="showAjaxModal({{$item['id']}});" data-placement="top" data-original-title="删除" data-id="3" href="javascript:;">
+                                <a class="btn-xs tooltips" onclick="showAjaxModal({{$item['id']}}, $(this));" data-placement="top" data-original-title="删除" data-id="3" href="javascript:;">
                                     <i class="fa fa-trash"></i>
                                 </a>
                                 @endif
@@ -53,7 +53,7 @@
                                             <i class="fa fa-pencil"></i>
                                         </a>
                                         @if(!isset($v['_child']))
-                                        <a class="btn-xs tooltips" onclick="showAjaxModal({{$v['id']}});" data-placement="top" data-original-title="删除" data-id="3" href="javascript:;">
+                                        <a class="btn-xs tooltips" onclick="showAjaxModal({{$v['id']}}, $(this));" data-placement="top" data-original-title="删除" data-id="3" href="javascript:;">
                                             <i class="fa fa-trash"></i>
                                         </a>
                                         @endif
@@ -71,7 +71,7 @@
                                                 <a class="btn-xs tooltips editCate" data-placement="top" data-original-title="修改" href="{{url('admin/category/'.$vo['id'].'/edit')}}">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
-                                                <a class="btn-xs tooltips" onclick="showAjaxModal({{$vo['id']}});" data-placement="top" data-original-title="删除" data-id="3" href="javascript:;">
+                                                <a class="btn-xs tooltips" onclick="showAjaxModal({{$vo['id']}}, $(this));" data-placement="top" data-original-title="删除" data-id="3" href="javascript:;">
                                                     <i class="fa fa-trash"></i>
                                                 </a>
                                             </div>
@@ -95,9 +95,10 @@
     </div>
 </div>
 <script type="text/javascript">
-    function showAjaxModal(id) {
+    function showAjaxModal(id, currentObj) {
         var title = '提示';
         var response = "确定删除此分类"
+        //alert(currentObj.html());
 
         $('#modal-7 .modal-title').html(title);
         $('#modal-7 .modal-body').html(response);
@@ -119,6 +120,7 @@
                     if (data.status == 1) {
                         //alert(data.msg);
                         $('#modal-7').modal('hide');
+                        currentObj.parent().parent().parent().remove();
                     } else {
                         alert(data.msg);
                     }

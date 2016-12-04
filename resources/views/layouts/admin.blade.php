@@ -207,25 +207,7 @@
                 </div>
                 
                 <div class="modal-body">
-                
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="field-3" class="control-label">标签名</label>
-                                <input type="text" class="form-control" id="field-3" placeholder="Tag">
-                            </div>
-                        </div>
-                    </div>
-                
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group no-margin">
-                                <label for="field-7" class="control-label">描述</label>
-                                <textarea class="form-control autogrow" id="field-7" placeholder="Describetion"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    
+                  
                 </div>
                 
                 <div class="modal-footer">

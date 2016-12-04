@@ -45,4 +45,5 @@ Route::group(['middleware' => ['web', 'admin.auth:admin'], 'prefix' => 'admin', 
 	Route::resource('article', 'ArticleController');
 
 	Route::resource('tag', 'TagController');
+	Route::post('tag', 'TagController@getTagInfo');
 });
