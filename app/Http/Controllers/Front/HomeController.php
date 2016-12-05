@@ -15,6 +15,6 @@ class HomeController extends Controller
         //dd($posts);
         //return view('admin.article.index')->with('posts', $posts);
 
-        return view('front.home.index');
+        return view('front.home.index')->with('posts', $posts);
     }
 }

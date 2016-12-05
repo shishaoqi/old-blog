@@ -74,9 +74,11 @@
                 </h1>
 
                 <!-- First Blog Post -->
-                <h2><a href="#">Blog Post Title</a></h2>
+                @if($posts)
+                @foreach($posts as $item)
+                <h2><a href="#">{{$item['title']}}</a></h2>
                 <p>
-                    <span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:00 PM by <a href="index.php">Start Bootstrap</a>
+                    <span class="glyphicon glyphicon-time"></span> Posted on {{$item['created_at']}} by <a href="index.php">Start Bootstrap</a>
                 </p>
                 <hr>
                 <div class="pull-left kb-thumb-medium hidden-xs">
@@ -85,7 +87,7 @@
                     </a>
                 </div>
                 <div class="entry entry-excerpt">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis ipsum officiis rerum.</p>
+                    <p>{{$item['content_mark_down']}}</p>
                 </div>
                 <!-- <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a> -->
                 <div class="clearfix"></div>
@@ -133,9 +135,11 @@
                     </p>
                     <div class="clearfix"></div>
                 </footer>
+                @endforeach
+                @endif
                 <!-- <hr> -->
 
-                <!-- Second Blog Post -->
+                <!-- Second Blog Post
                 <h2>
                     <a href="#">Blog Post Title</a>
                 </h2>
@@ -148,10 +152,10 @@
                 <hr>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam, quasi, fugiat, asperiores harum voluptatum tenetur a possimus nesciunt quod accusamus saepe tempora ipsam distinctio minima dolorum perferendis labore impedit voluptates!</p>
                 <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
-
+                
                 <hr>
-
-                <!-- Third Blog Post -->
+                
+                Third Blog Post
                 <h2>
                     <a href="#">Blog Post Title</a>
                 </h2>
@@ -164,8 +168,8 @@
                 <hr>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, voluptates, voluptas dolore ipsam cumque quam veniam accusantium laudantium adipisci architecto itaque dicta aperiam maiores provident id incidunt autem. Magni, ratione.</p>
                 <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
-
-                <hr>
+                
+                <hr> -->
 
                 <!-- Pager -->
                 <ul class="pager">
