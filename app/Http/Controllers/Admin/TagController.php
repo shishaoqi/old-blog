@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Models\Tags;
 
 class TagController extends Controller
 {
@@ -16,7 +17,9 @@ class TagController extends Controller
      */
     public function index()
     {
-        return view('admin.tag.index');
+        $tagList = Tags::all()->toArray();
+        //dd($cateList);
+        return view('admin.tag.index')->with('tagList', $tagList);
     }
 
     /**
@@ -37,7 +40,21 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($_POST);
+        $tag = new Tags;
+        //dd($request->all());
+        if ($tag->fill($request->all())->save()) {
+            $data = array(
+                    'status' => 1,
+                    'msg' => '添加标签成功'
+                );
+        }else{
+            $data = array(
+                    'status' => 0,
+                    'msg' => '添加标签失败'
+                );
+        }
+        return $data;
     }
 
     /**
@@ -48,7 +65,8 @@ class TagController extends Controller
      */
     public function show($id)
     {
-        //
+        $tag = Tags::find($id);
+        return $tag;
     }
 
     /**
@@ -71,7 +89,20 @@ class TagController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $re = Tags::find($id)->fill($request->except('_token', '_method'))->save();
+        if($re){
+            $data = array(
+                    'status' => 1,
+                    'msg' => '修改标签成功'
+                );
+        }else{
+            $data = array(
+                    'status' => 1,
+                    'msg' => '修改标签成功'
+                );
+        }
+
+        return $data;
     }
 
     /**
@@ -82,6 +113,22 @@ class TagController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $re = Tags::destroy($id);;
+        if($re){
+            $data = [
+                'status' => 1,
+                'msg' => '删除成功！',
+            ];
+        }else{
+            $data = [
+                'status' => 0,
+                'msg' => '删除失败，请稍后重试！',
+            ];
+        }
+        return $data;
+    }
+
+    public function getTagInfo(){
+
     }
 }
