@@ -3,8 +3,10 @@
  * @Author: shishao
  * @Date:   2016-06-11 17:54:51
  * @Last Modified by:   shishao
- * @Last Modified time: 2016-06-11 20:15:52
+ * @Last Modified time: 2016-12-06 23:11:51
  */
+use \Michelf\Markdown;
+
 if(!function_exists('listToTree')){
     function listToTree($list, $pk='id', $pid = 'pid', $child = '_child', $root=0) {
         // 创建Tree
@@ -29,6 +31,13 @@ if(!function_exists('listToTree')){
             }
         }
         return $tree;
+    }
+}
+
+if(!function_exists('markdownToHtml')){
+    function markdownToHtml($content){
+        //return $content;
+        return Markdown::defaultTransform($content);
     }
 }
 

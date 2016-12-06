@@ -21,6 +21,7 @@ Route::group(['middleware' => ['web']], function () {
 
 	Route::auth(); //定义了注册登录路由
 	Route::get('/home', 'Front\HomeController@index');
+	Route::get('/post/{id}', 'Front\PostController@index');
 });
 
 
@@ -45,5 +46,4 @@ Route::group(['middleware' => ['web', 'admin.auth:admin'], 'prefix' => 'admin', 
 	Route::resource('article', 'ArticleController');
 
 	Route::resource('tag', 'TagController');
-	Route::post('tag', 'TagController@getTagInfo');
 });
