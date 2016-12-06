@@ -87,7 +87,7 @@
                     </a>
                 </div>
                 <div class="entry entry-excerpt">
-                    <p>{{$item['content_mark_down']}}</p>
+                    <p>{{str_limit($item['content_mark_down'], 300)}}</p>
                 </div>
                 <!-- <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a> -->
                 <div class="clearfix"></div>
@@ -105,7 +105,7 @@
                         <i class="glyphicon glyphicon-link"></i>
                         阅读全文
                         </a> -->
-                        <a class="btn btn-primary" href="#">阅读全文<span class="glyphicon glyphicon-chevron-right"></span></a>
+                        <a class="btn btn-primary" href="{{url('/post/'.$item["id"])}}">阅读全文<span class="glyphicon glyphicon-chevron-right"></span></a>
                     </p>
                     <p class="text-muted hidden-xs meta-data">
                         <span class="cat-links">
