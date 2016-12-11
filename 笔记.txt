@@ -15,3 +15,10 @@ php artisan make:controller /Front/HomeController
 
 使用RESTFUL生成控制器（自动生成index、create、store、show、edit、update、destory方法）
 php artisan make:controller PostController --resource
+
+
+创建表单请求类 TagCreateRequest
+Laravel 5.1 的一个优秀特性就是表单请求类，这些类可以对指定表单字段进行验证。
+使用如下 Artisan 命令创建一个新的 TagCreateRequest：
+php artisan make:request TagCreateRequest
+php artisan make:request ArticleCreateRequest
