@@ -78,7 +78,7 @@
                         <a rel="v:url" property="v:title" href="http://laravelacademy.org/tutorials/blog">博客系列</a>
                     </li>
                     <li class="active" typeof="v:Breadcrumb">
-                        <span property="v:title">基于Laravel开发博客应用系列 —— 十分钟搭建博客系统</span>
+                        <span property="v:title">{{$post->title}}</span>
                     </li>
                 </ol>
 
@@ -86,27 +86,15 @@
                     <main id="main" class="site-main" role="main">
                         <article id="post-2265" class="post-2265 post type-post status-publish format-standard has-post-thumbnail hentry category-blog tag-laravel tag-333 tag-26 tag-421 tag-335 tag-89 tag-86 tag-38 tag-23 tag-82 tag-12">
                             <header class="entry-header page-header">
-                                <h1 class="entry-title">基于Laravel开发博客应用系列 —— 十分钟搭建博客系统</h1>
+                                <h1 class="entry-title">{{$post->title}}</h1>
                                     <div class="entry-meta text-muted">
-                                        <span class="posted-on"><i class="glyphicon glyphicon-calendar"></i> Posted on <a href="http://laravelacademy.org/post/2265.html" rel="bookmark"><time class="entry-date published" datetime="2015-11-29T22:25:22+08:00">2015年11月29日</time><time class="updated" datetime="2015-11-29T22:27:05+08:00">2015年11月29日</time></a></span><span class="byline"> by <span class="author vcard"><i class="glyphicon glyphicon-user"></i> <a class="url fn n" href="http://laravelacademy.org/post/author/nonfu">学院君</a></span></span>
+                                        <span class="posted-on"><i class="glyphicon glyphicon-calendar"></i> Posted on <a href="http://laravelacademy.org/post/2265.html" rel="bookmark"><time class="entry-date published" datetime="2015-11-29T22:25:22+08:00">2015年11月29日</time></a></span><span class="byline"> by <span class="author vcard"><i class="glyphicon glyphicon-user"></i> <a class="url fn n" href="http://laravelacademy.org/post/author/nonfu">学院君</a></span></span>
                                     </div>
                                     <!-- .entry-meta -->
                             </header>
                             <!-- .entry-header -->
                             <div class="entry-content">
-                                <p>本节开始我们将正式开始<a href="http://laravelacademy.org/tags/%e5%8d%9a%e5%ae%a2" title="View all posts in 博客" target="_blank">博客</a>项目的代码编写，借助于 <a href="http://laravelacademy.org/tags/laravel" title="View all posts in Laravel" target="_blank">Laravel</a> 5.1 的强大功能，我们可以在十分钟内搭建起一个博客应用，当然这其中不包括任何花里胡哨的点缀之物，也不包括后台管理系统（这些我们在后续章节中会一一加进来）。</p>
-                                <h3 id="ipt_kb_toc_2265_0"><strong>1、创建文章<a href="http://laravelacademy.org/tags/%e6%95%b0%e6%8d%ae%e8%a1%a8" title="View all posts in 数据表" target="_blank">数据表</a>及其<a href="http://laravelacademy.org/tags/%e6%a8%a1%e5%9e%8b" title="View all posts in 模型" target="_blank">模型</a>（0:00~2:30）</strong></h3>
-                                <p>我们已经在<a href="http://laravelacademy.org/post/2249.html">上一节</a>中为博客项目完成了大部分准备工作，现在首先要做的就是为这个项目创建一个新的文章表 <code>posts</code> 及该表对应的模型类 <code>Post</code>，使用如下Artisan命令即可完成这两个创建工作：</p>
-                                <pre>php artisan make:model --migration Post</pre>
-                                <p>上述命令会做两件事情：</p>
-                                <ul>
-                                    <li>在 <code>app</code> 目录下创建模型类 <code>App\Post</code>；</li>
-                                    <li>创建用于创建 <code>posts</code> 表的<a href="http://laravelacademy.org/tags/%e8%bf%81%e7%a7%bb" title="View all posts in 迁移" target="_blank">迁移</a>，该迁移文件位于 <code>database/migrations</code> 目录下。</li>
-                                </ul>
-                                <blockquote>
-                                    <p>注：如果不了解什么是迁移，可参考 <a href="http://laravelacademy.org/post/130.html">Laravel 迁移文档</a>。</p>
-                                </blockquote>
-                                <p>编辑 <code>database/migrations</code> 目录下刚生成的这个迁移文件内容如下：</p>
+                                {!! $post->content_html !!}
                             </div>
                         </article>
                     </main>

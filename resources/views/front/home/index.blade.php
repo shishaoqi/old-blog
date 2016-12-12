@@ -87,7 +87,7 @@
                     </a>
                 </div>
                 <div class="entry entry-excerpt">
-                    <p>{{str_limit($item['content_mark_down'], 300)}}</p>
+                    <p>{{str_limit(strip_tags($item['content_html']), 300)}}</p>
                 </div>
                 <!-- <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a> -->
                 <div class="clearfix"></div>
@@ -180,6 +180,29 @@
                         <a href="#">Newer &rarr;</a>
                     </li>
                 </ul>
+
+                <div class="page-control">
+                    <ul class="pagination pull-right">
+                        <li class="active">
+                            <a href="javascript:;">1</a>
+                        </li>
+                        <li>
+                            <a href="http://wenda.golaravel.com/sort_type-new__day-0__is_recommend-0__page-2">2</a>
+                        </li>
+                        <li>
+                            <a href="http://wenda.golaravel.com/sort_type-new__day-0__is_recommend-0__page-3">3</a>
+                        </li>
+                        <li>
+                            <a href="http://wenda.golaravel.com/sort_type-new__day-0__is_recommend-0__page-4">4</a>
+                        </li>
+                        <li>
+                            <a href="http://wenda.golaravel.com/sort_type-new__day-0__is_recommend-0__page-2">></a>
+                        </li>
+                        <li>
+                            <a href="http://wenda.golaravel.com/sort_type-new__day-0__is_recommend-0__page-52">>></a>
+                        </li>
+                    </ul>
+                </div>
 
             </div>
 

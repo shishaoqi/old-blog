@@ -12,19 +12,18 @@ class CreateBlogPostsTable extends Migration
      */
     public function up()
     {
-        //
         Schema::create('blog_posts', function(Blueprint $table){
             $table->engine = 'MyISAM';
             $table->increments('id');
-            $table->integer('user_id');//用户id
+            $table->integer('user_id')->comment('用户id');//用户id
             $table->string('title', 255);
-            $table->string('slug', 255);//标签
-            $table->integer('cate_id');//类别id
-            $table->text('excerpt');//简介
+            $table->string('slug', 255)->comment('标签');//标签
+            $table->integer('cate_id')->comment('类别id');//类别id
+            $table->text('excerpt')->comment('简介');//简介
             $table->text('content_html');
             $table->text('content_mark_down');
-            $table->integer('published_at');//发布时间
-            $table->tinyInteger('published');//是否公布
+            $table->integer('published_at')->comment('发布时间');//发布时间
+            $table->tinyInteger('published')->comment('是否公布');//是否公布
             $table->timestamps();
         });
     }
@@ -36,7 +35,7 @@ class CreateBlogPostsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('blog_posts');
     }
 
 }

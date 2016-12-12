@@ -12,6 +12,6 @@ class PostController extends Controller
 {
     public function index($id){
         $post = Posts::find($id);
-        return view('front.post.index')->with(compact($post));
+        return view('front.post.index')->with(compact('post'));
     }
 }
