@@ -12,9 +12,25 @@ use App\Models\Posts;
 use Event;
 use App\Events\Postsaved;
 use App\Listeners\SaveDataToCache;
+//use App\Http\Requests\ArticleCreateRequest;
 
 class ArticleController extends Controller
 {
+    protected $fields = [
+        'user_id' => '',
+        'title' => '',
+        'slug' => '',
+        'cate_id' => '',
+        'excerpt' => '',
+        //'content_html' => '',
+        'content_mark_down' => '',
+        //'published_at' => '',
+        'published' => '',
+
+       /* 'layout' => 'blog.layouts.index',
+        'reverse_direction' => 0,*/
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +38,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $posts = Posts::paginate(2);
+        $posts = Posts::paginate(10);
         return view('admin.article.index')->with('posts', $posts);
     }
 
@@ -46,17 +62,31 @@ class ArticleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ArticleCreateRequest $request)
+    public function store(Requests\ArticleCreateRequest $request)
     {
-        //$post = $request->all();
+        /*$validator = $this->validator($request->all());
+        if ($validator->fails()) {  //手动的添加错误        
+            return redirect('/create')
+                ->withErrors($validator)
+                ->withInput();
+        }*/
         $post = $request->all();
         $post['content_html'] = $post['editor-md-html-code'];
         $post['published_at'] = time();
-        //dd($post);
+        $post['published'] = 0;
         $postModel = new Posts;
+        /*foreach (array_keys($this->fields) as $field) {
+            $postModel->$field = $request->get($field);
+        }
+        $postModel->content_html = $post['editor-md-html-code'];
+        $postModel->published_at = time();
+        $postModel->published = 0;
+
+        $postModel->save();
+        return redirect('admin/article')->withSuccess("The tag '$postModel->title' was added seuccess.");*/
         if ($postModel->fill($post)->save()) {
             Event::fire(new PostSaved($postModel));
-            return redirect('admin/article');
+            return redirect('admin/article')->withSuccess("The tag '$postModel->title' was added seuccess.");
         }
     }
 
@@ -113,7 +143,23 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        /*$post = Posts::findOrFail($id);
+        $post->delete();*/
+
+        $re = Posts::destroy($id);;
+        if($re){
+            $data = [
+                'status' => 1,
+                'msg' => '删除成功！',
+            ];
+        }else{
+            $data = [
+                'status' => 0,
+                'msg' => '删除失败，请稍后重试！',
+            ];
+        }
+        return $data;
+        //return redirect('/admin/article')->withSuccess("The '$post->title' post has been deleted.");
     }
 
     public function uploadImg(Request $request){
