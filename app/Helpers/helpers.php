@@ -3,7 +3,7 @@
  * @Author: shishao
  * @Date:   2016-06-11 17:54:51
  * @Last Modified by:   shishao
- * @Last Modified time: 2016-12-06 23:11:51
+ * @Last Modified time: 2016-12-13 00:48:19
  */
 use \Michelf\Markdown;
 
@@ -38,6 +38,15 @@ if(!function_exists('markdownToHtml')){
     function markdownToHtml($content){
         //return $content;
         return Markdown::defaultTransform($content);
+    }
+}
+
+if(!function_exists('p')){
+    function p($str, $die=null){
+        echo '<pre>' . print_r($str, true) . '</pre>';
+        if(!empty($die)){
+            exit();
+        }
     }
 }
 

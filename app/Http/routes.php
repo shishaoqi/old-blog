@@ -24,6 +24,9 @@ Route::group(['middleware' => ['web']], function () {
 	Route::get('/post/{id}', 'Front\PostController@index');
 });
 
+Route::get('form','TestController@form');
+Route::post('form/testValidate','TestController@testValidate');
+
 
 Route::get('admin/login', 'Admin\AuthController@showLoginForm');
 Route::post('admin/login', 'Admin\AuthController@login');
