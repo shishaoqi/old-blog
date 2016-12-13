@@ -16,8 +16,8 @@ class Kernel extends HttpKernel
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
         
-        \Illuminate\Session\Middleware\StartSession::class,
-        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+        //\Illuminate\Session\Middleware\StartSession::class,              //遇到errors 不显示
+        //\Illuminate\View\Middleware\ShareErrorsFromSession::class,       //遇到errors 不显示
     ];
 
     /**
@@ -29,8 +29,8 @@ class Kernel extends HttpKernel
         'web' => [
             \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Session\Middleware\StartSession::class,
-            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            \Illuminate\Session\Middleware\StartSession::class,           //改放入到protected $middleware
+            \Illuminate\View\Middleware\ShareErrorsFromSession::class,    //改放入到protected $middleware
             \App\Http\Middleware\VerifyCsrfToken::class,
         ],
 

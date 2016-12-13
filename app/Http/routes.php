@@ -12,39 +12,35 @@
 */
 
 //Route::match(['get', 'post'], '/', '');
-//
-Route::group(['middleware' => ['web']], function () {
-
-	Route::get('/', function () {
-		return view('welcome');
-	});
-
-	Route::auth(); //定义了注册登录路由
-	Route::get('/home', 'Front\HomeController@index');
-	Route::get('/post/{id}', 'Front\PostController@index');
+Route::get('/', function () {
+	return view('welcome');
 });
 
 Route::get('form','TestController@form');
 Route::post('form/testValidate','TestController@testValidate');
+Route::auth();
+
+//front
+Route::group(['middleware' => [], 'prefix' => 'front', 'namespace' => 'Front'], function () {
+	//定义了注册登录路由
+	Route::get('home', 'HomeController@index');
+	Route::get('post/{id}', 'PostController@index');
+});
 
 
+//admin
 Route::get('admin/login', 'Admin\AuthController@showLoginForm');
 Route::post('admin/login', 'Admin\AuthController@login');
 Route::get('admin/register', 'Admin\AuthController@getRegister');
 Route::post('admin/register', 'Admin\AuthController@postRegister');
 
-Route::group(['middleware' => ['web', 'admin.auth:admin'], 'prefix' => 'admin', 'namespace' => 'Admin'], function () {
+Route::group(['middleware' => ['admin.auth:admin'], 'prefix' => 'admin', 'namespace' => 'Admin'], function () {//'web', 
 	//admin.auth:admin
 	Route::get('', 'AdminController@index');
 	Route::get('logout', 'AuthController@logout');
 	Route::get('index', 'AdminController@index');
 
 	Route::resource('category', 'CategoryController');
-
-	/*Route::get('article/index', 'ArticleController@index');
-	Route::get('article/add', 'ArticleController@add');
-	Route::post('article/add', 'ArticleController@doAdd');
-	Route::get('article/edit', 'ArticleController@edit');*/
 	Route::post('article/uploadImg/{guid?}', 'ArticleController@uploadImg');
 	Route::resource('article', 'ArticleController');
 

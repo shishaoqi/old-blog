@@ -27,9 +27,9 @@ class ArticleCreateRequest extends Request
             'title' => 'required',
             'slug' => 'required',
             'excerpt'=> 'required',
-            /* 'content_html'=> 'required',
+            //'content_html'=> 'required',
             'content_mark_down' => 'required',
-            'published_at'=> 'required',
+            /* 'published_at'=> 'required',
             'published' => 'required',*/
             'cate_id' => 'required'
         ];
