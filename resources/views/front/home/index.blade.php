@@ -105,7 +105,7 @@
                         <i class="glyphicon glyphicon-link"></i>
                         阅读全文
                         </a> -->
-                        <a class="btn btn-primary" href="{{url('/post/'.$item["id"])}}">阅读全文<span class="glyphicon glyphicon-chevron-right"></span></a>
+                        <a class="btn btn-primary" href="{{url('front/post/'.$item["id"])}}">阅读全文<span class="glyphicon glyphicon-chevron-right"></span></a>
                     </p>
                     <p class="text-muted hidden-xs meta-data">
                         <span class="cat-links">
@@ -116,16 +116,11 @@
                         <span class="tags-links">
                             <i class="glyphicon glyphicon-tags"></i>
                             标签：
-                            <a href="http://laravelacademy.org/tags/blade" rel="tag">Blade</a>
-                            ,
-                            <a href="http://laravelacademy.org/tags/jigsaw" rel="tag">Jigsaw</a>
-                            ,
-                            <a href="http://laravelacademy.org/tags/laravel" rel="tag">Laravel</a>
-                            ,
-                            <a href="http://laravelacademy.org/tags/%e5%b8%83%e5%b1%80" rel="tag">布局</a>
-                            ,
-                            <a href="http://laravelacademy.org/tags/%e8%a7%86%e5%9b%be" rel="tag">视图</a>
-                            ,
+                            <a href="http://laravelacademy.org/tags/blade" rel="tag">Blade</a> ,
+                            <a href="http://laravelacademy.org/tags/jigsaw" rel="tag">Jigsaw</a> ,
+                            <a href="http://laravelacademy.org/tags/laravel" rel="tag">Laravel</a> ,
+                            <a href="http://laravelacademy.org/tags/%e5%b8%83%e5%b1%80" rel="tag">布局</a> ,
+                            <a href="http://laravelacademy.org/tags/%e8%a7%86%e5%9b%be" rel="tag">视图</a> ,
                             <a href="http://laravelacademy.org/tags/%e9%9d%99%e6%80%81%e7%ab%99%e7%82%b9" rel="tag">静态站点</a>
                         </span>
                         <span class="comments-link">
