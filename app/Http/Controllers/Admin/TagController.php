@@ -97,7 +97,7 @@ class TagController extends Controller
                 );
         }else{
             $data = array(
-                    'status' => 1,
+                    'status' => -1,
                     'msg' => '修改标签成功'
                 );
         }

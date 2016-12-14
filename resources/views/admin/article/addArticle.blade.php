@@ -37,11 +37,42 @@
                     </div>
                     
                     <div class="form-group-separator"></div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label class="col-sm-2 control-label" for="field-2">标签</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="field-2" name="slug" placeholder="标签&hellip;">
-                            <!-- <p class="help-block">Example block-level help text here. Emails inputs are validated on native HTML5 forms.</p> -->
+                        </div>
+                    </div> -->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="tagsinput-1">Multi-select List</label>
+                        
+                        <div class="col-sm-10">
+                            
+                            <script type="text/javascript">
+                                jQuery(document).ready(function($)
+                                {
+                                    $("#multi-select").multiSelect({
+                                        afterInit: function()
+                                        {
+                                            // Add alternative scrollbar to list
+                                            this.$selectableContainer.add(this.$selectionContainer).find('.ms-list').perfectScrollbar();
+                                        },
+                                        afterSelect: function()
+                                        {
+                                            // Update scrollbar size
+                                            this.$selectableContainer.add(this.$selectionContainer).find('.ms-list').perfectScrollbar('update');
+                                        }
+                                    });
+                                });
+                            </script>
+                            <select class="form-control" multiple="multiple" id="multi-select" name="slug[]">
+                                @if($tags) 
+                                @foreach($tags as $item)
+                                    <option value="{{$item['id']}}">{{$item['name']}}</option>
+                                @endforeach 
+                                @endif
+                            </select>
+                            
                         </div>
                     </div>
 
@@ -109,7 +140,13 @@
         </div>
     </div>
 </div>
+
+<!-- Imported styles on this page -->
+<link rel="stylesheet" href="{{asset('backend/js/multiselect/css/multi-select.css')}}" />
 <link rel="stylesheet" href="{{asset('backend/js/editormd/css/editormd.css')}}" />
+
+<!-- Imported scripts on this page -->
+<script src="{{asset('backend/js/multiselect/js/jquery.multi-select.js')}}"></script>//会与editormd.js 相冲突 
 
 <script src="{{asset('backend/js/editormd/editormd.js')}}"></script>
 <script type="text/javascript">

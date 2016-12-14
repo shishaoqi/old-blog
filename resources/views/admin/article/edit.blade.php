@@ -15,6 +15,17 @@
                 </div>
             </div>
             <div class="panel-body">
+
+                @if (count($errors) > 0)
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+
                 <form role="form" class="form-horizontal" action="{{url('admin/article/'.$post['id'])}}" method="post">
                     <?php echo csrf_field(); ?>
                     <input type="hidden" class="form-control" id="field-20" name="_method" value="put">
@@ -26,21 +37,26 @@
                     </div>
                     
                     <div class="form-group-separator"></div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label class="col-sm-2 control-label" for="field-2">标签</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="field-2" name="slug" value="{{$post['slug']}}">
-                            <!-- <p class="help-block">Example block-level help text here. Emails inputs are validated on native HTML5 forms.</p> -->
-                        </div>
-                    </div>
-
-                    <!-- <div class="form-group-separator"></div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="field-4">File Field</label>
-                        <div class="col-sm-10">
-                            <input type="file" class="form-control" id="field-4">
                         </div>
                     </div> -->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="tagsinput-1">标签</label>
+                        
+                        <div class="col-sm-10">
+                            <select class="form-control" multiple="multiple" id="multi-select" name="slug[]">
+                                @if($newTags) 
+                                @foreach($newTags as $item)
+                                    <option value="{{$item['id']}}" @if($item['select'] == true) selected="true" @endif >{{$item['name']}}</option>
+                                @endforeach 
+                                @endif
+                            </select>
+                            
+                        </div>
+                    </div>
 
                     <div class="form-group-separator"></div>
                     <div class="form-group">
@@ -98,8 +114,14 @@
         </div>
     </div>
 </div>
+<!-- Imported styles on this page -->
+<link rel="stylesheet" href="{{asset('backend/js/multiselect/css/multi-select.css')}}" />
 <link rel="stylesheet" href="{{asset('backend/js/editormd/css/editormd.css')}}" />
+
+<!-- Imported scripts on this page -->
+<script src="{{asset('backend/js/multiselect/js/jquery.multi-select.js')}}"></script>//会与editormd.js 相冲突 
 <script src="{{asset('backend/js/editormd/editormd.js')}}"></script>
+
 <script type="text/javascript">
     var testEditor;
     var tokens = $('form input:eq(1)').val();
@@ -118,16 +140,19 @@
             imageUploadURL : "{{url('/admin/article/uploadImg')}}",
             tokens : tokens
         });
-        
-        /*
-        // or
-        testEditor = editormd({
-            id      : "test-editormd",
-            width   : "90%",
-            height  : 640,
-            path    : "../lib/"
+       
+        $("#multi-select").multiSelect({
+            afterInit: function()
+            {
+                // Add alternative scrollbar to list
+                this.$selectableContainer.add(this.$selectionContainer).find('.ms-list').perfectScrollbar();
+            },
+            afterSelect: function()
+            {
+                // Update scrollbar size
+                this.$selectableContainer.add(this.$selectionContainer).find('.ms-list').perfectScrollbar('update');
+            }
         });
-        */
     });
 </script>
 @endsection

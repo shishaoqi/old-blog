@@ -142,12 +142,20 @@
                         //$('#tag-table-list-id').find('li').last().append(tag_body);
                         //$('#tag-table-list-id').find('li').last().find('.list-label').html(tag);
                         $('#tag-table-list-id').find('li :first').clone().html(tag).appendTo('#tag-table-list-id li:last');
-                    } else {
+                    } else if(data.status == -1) {
                         alert(data.msg);
+                    }else{
+
                     }
                 },
                 error: function(msg) {
-                    alert('error');
+                    //alert('error');
+                    //alert(msg.responseText);
+                    //alert(msg.responseJSON.description[0]);
+                    //alert(msg.responseJSON.name[0]);
+                    //console.log(msg);
+                    $('#modal-6 form input[name=tag]').after('<span class="validate-has-error">'+msg.responseJSON.name[0]+'</span>');
+                    $('#modal-6 form textarea[name=description]').after('<span class="validate-has-error">'+msg.responseJSON.description[0]+'</span>');
                 }
             })
             //$('#modal-6 form').submit();

@@ -9,10 +9,11 @@ use App\Http\Controllers\Controller;
 use Auth;
 use App\Models\Category;
 use App\Models\Posts;
+use App\Models\Tags;
 use Event;
 use App\Events\Postsaved;
 use App\Listeners\SaveDataToCache;
-//use App\Http\Requests\ArticleCreateRequest;
+
 
 class ArticleController extends Controller
 {
@@ -53,7 +54,8 @@ class ArticleController extends Controller
         $cateList = Category::all()->toArray();
         $cateList = listToTree($cateList);
         //dd($cateList);
-        return view('admin.article.addArticle')->with('cateList', $cateList)->with('user_id', $admin['id']);
+        $tags = Tags::all()->toArray();
+        return view('admin.article.addArticle')->with(compact('cateList', 'tags'))->with('user_id', $admin['id']);
     }
 
     /**
@@ -71,6 +73,7 @@ class ArticleController extends Controller
                 ->withInput();
         }*/
         $post = $request->all();
+        $post['slug'] = implode(',', $post['slug']);
         $post['content_html'] = $post['editor-md-html-code'];
         $post['published_at'] = time();
         $post['published'] = 0;
@@ -110,9 +113,28 @@ class ArticleController extends Controller
     public function edit($id)
     {
         $post = Posts::find($id);
+        $tags = Tags::all()->toArray();
+        $newTags = [];
+        $selected_tags = [];
+        foreach ($tags as $key => $va) {
+            $va['select'] = false;
+            $newTags[$va['id']] = $va;
+        }
+
+        $selected_tag_ids  = explode(',', $post['slug']);
+
+        foreach ($selected_tag_ids as $id) {
+            $newTags[$id]['select'] = true;
+            $selected_tags[] = $newTags[$id];
+            unset($newTags[$id]);
+        }
+        $newTags = array_merge($selected_tags, $newTags);
+        //dd($newTags);
+
         $cateList = Category::all()->toArray();
         $cateList = listToTree($cateList);
-        return view('admin.article.edit')->with(compact('post','id', 'cateList'));
+        
+        return view('admin.article.edit')->with(compact('post','id', 'cateList', 'newTags'));
     }
 
     /**
@@ -128,6 +150,7 @@ class ArticleController extends Controller
         if(!$postModel)  exit('指定文章不存在！');
 
         $post = $request->except('_token');
+        $post['slug'] = implode(',', $post['slug']);
         $post['content_html'] = $post['editor-md-html-code'];
         $re = $postModel->fill($post)->save();
         Event::fire(new PostSaved($postModel));
