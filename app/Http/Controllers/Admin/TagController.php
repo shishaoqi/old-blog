@@ -38,7 +38,7 @@ class TagController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Requests\TagCreateRequest $request)
     {
         //dd($_POST);
         $tag = new Tags;
