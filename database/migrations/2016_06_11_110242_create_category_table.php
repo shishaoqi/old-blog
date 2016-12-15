@@ -15,7 +15,7 @@ class CreateCategoryTable extends Migration
         Schema::create('category', function (Blueprint $table) {
             $table->engine = 'MyISAM';
             $table->increments('id');
-            $table->string('name', 50);
+            $table->string('name', 50)->unique();
             $table->string('title', 255);
             $table->string('keywords', 255);
             $table->string('description', 255);
@@ -33,6 +33,6 @@ class CreateCategoryTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('category');
     }
 }

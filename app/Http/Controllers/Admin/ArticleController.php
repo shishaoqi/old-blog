@@ -73,7 +73,8 @@ class ArticleController extends Controller
                 ->withInput();
         }*/
         $post = $request->all();
-        $post['slug'] = implode(',', $post['slug']);
+        $slugs = $post['slug'];
+        
         $post['content_html'] = $post['editor-md-html-code'];
         $post['published_at'] = time();
         $post['published'] = 0;
@@ -88,6 +89,12 @@ class ArticleController extends Controller
         $postModel->save();
         return redirect('admin/article')->withSuccess("The tag '$postModel->title' was added seuccess.");*/
         if ($postModel->fill($post)->save()) {
+            $post_id = $postModel->id;
+            /*foreach ($slugs as $key => $slug) {
+            
+            }*/
+            $postModel->tag()->sync($slugs);
+
             Event::fire(new PostSaved($postModel));
             return redirect('admin/article')->withSuccess("The tag '$postModel->title' was added seuccess.");
         }
@@ -112,7 +119,18 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        $post = Posts::find($id);
+        $article = Posts::with('tag')->find($id);
+        dd($article->tag);
+        if ($article) {
+            if ($article->tag) {
+                $tagIds = array_column($article->tag->toArray(), 'id');
+                $article->tag = $tagIds;
+            }
+            return $article;
+        }
+
+        $post = Posts::tag()->find($id);
+        dd($post);
         $tags = Tags::all()->toArray();
         $newTags = [];
         $selected_tags = [];

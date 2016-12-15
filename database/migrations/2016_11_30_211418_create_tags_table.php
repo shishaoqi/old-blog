@@ -17,9 +17,8 @@ class CreateTagsTable extends Migration
         Schema::create('tags', function (Blueprint $table) {
             $table->engine = 'MyISAM';
             $table->increments('id');
-            $table->string('name')->default('')->comment('标签名称');
+            $table->string('name')->default('')->unique()->comment('标签名称');
             $table->string('description', 255)->comment('描述');//描述
-            $table->integer('create_time')->comment('创建时间戳');//创建时间戳
             $table->timestamps();
         });
     }

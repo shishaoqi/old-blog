@@ -17,7 +17,7 @@ class CreateBlogPostsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->comment('用户id');//用户id
             $table->string('title', 255);
-            $table->string('slug', 255)->comment('标签');//标签
+            //$table->string('slug', 255)->comment('标签');//标签
             $table->integer('cate_id')->comment('类别id');//类别id
             $table->text('excerpt')->comment('简介');//简介
             $table->text('content_html');

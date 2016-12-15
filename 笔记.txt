@@ -22,3 +22,8 @@ Laravel 5.1 的一个优秀特性就是表单请求类，这些类可以对指�
 使用如下 Artisan 命令创建一个新的 TagCreateRequest：
 php artisan make:request TagCreateRequest
 php artisan make:request ArticleCreateRequest
+
+生成迁移
+php artisan make:migration create_users_table --create=users
+
+
