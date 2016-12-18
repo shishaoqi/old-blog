@@ -10,6 +10,7 @@ use Auth;
 use App\Models\Category;
 use App\Models\Posts;
 use App\Models\Tags;
+use App\Models\PostTag;
 use Event;
 use App\Events\Postsaved;
 use App\Listeners\SaveDataToCache;
@@ -119,18 +120,9 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        $article = Posts::with('tag')->find($id);
-        dd($article->tag);
-        if ($article) {
-            if ($article->tag) {
-                $tagIds = array_column($article->tag->toArray(), 'id');
-                $article->tag = $tagIds;
-            }
-            return $article;
-        }
-
-        $post = Posts::tag()->find($id);
-        dd($post);
+        $post = Posts::with('tag')->find($id);
+        
+        $hadSelectTags = $post->tag->toArray();//已选择的标签
         $tags = Tags::all()->toArray();
         $newTags = [];
         $selected_tags = [];
@@ -139,15 +131,14 @@ class ArticleController extends Controller
             $newTags[$va['id']] = $va;
         }
 
-        $selected_tag_ids  = explode(',', $post['slug']);
-
-        foreach ($selected_tag_ids as $id) {
+        //排序：把已选择标签 排在 前面
+        foreach ($hadSelectTags as $hadSelectTag) {
+            $id = $hadSelectTag['id'];
             $newTags[$id]['select'] = true;
             $selected_tags[] = $newTags[$id];
             unset($newTags[$id]);
         }
         $newTags = array_merge($selected_tags, $newTags);
-        //dd($newTags);
 
         $cateList = Category::all()->toArray();
         $cateList = listToTree($cateList);
@@ -168,10 +159,18 @@ class ArticleController extends Controller
         if(!$postModel)  exit('指定文章不存在！');
 
         $post = $request->except('_token');
-        $post['slug'] = implode(',', $post['slug']);
+        //$post['slug'] = implode(',', $post['slug']); 
         $post['content_html'] = $post['editor-md-html-code'];
         $re = $postModel->fill($post)->save();
-        Event::fire(new PostSaved($postModel));
+        if($re){
+            Event::fire(new PostSaved($postModel));
+
+            PostTag::where('post_id', $id)->delete();
+            $postModel->tag()->sync($post['slug']);
+        }else{
+            exit('error save post!');
+        }
+        
 
         return redirect('admin/article');
     }

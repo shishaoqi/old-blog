@@ -39,7 +39,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Start Bootstrap</a>
+                <a class="navbar-brand" href="#">Start Laravel</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -76,7 +76,7 @@
                 <!-- First Blog Post -->
                 @if($posts)
                 @foreach($posts as $item)
-                <h2><a href="#">{{$item['title']}}</a></h2>
+                <h2><a href="{{url('front/post/'.$item["id"])}}">{{$item['title']}}</a></h2>
                 <p>
                     <span class="glyphicon glyphicon-time"></span> Posted on {{$item['created_at']}} by <a href="index.php">Start Bootstrap</a>
                 </p>
@@ -111,17 +111,21 @@
                         <span class="cat-links">
                             <i class="glyphicon glyphicon-folder-open"></i>
                               分类：
-                            <a href="http://laravelacademy.org/project/packages" rel="category tag">扩展包</a>
+                            <a href="http://laravelacademy.org/project/{{$item->category->name}}" rel="category tag">{{$item->category->name}}</a>
                         </span>
                         <span class="tags-links">
                             <i class="glyphicon glyphicon-tags"></i>
                             标签：
-                            <a href="http://laravelacademy.org/tags/blade" rel="tag">Blade</a> ,
-                            <a href="http://laravelacademy.org/tags/jigsaw" rel="tag">Jigsaw</a> ,
-                            <a href="http://laravelacademy.org/tags/laravel" rel="tag">Laravel</a> ,
-                            <a href="http://laravelacademy.org/tags/%e5%b8%83%e5%b1%80" rel="tag">布局</a> ,
-                            <a href="http://laravelacademy.org/tags/%e8%a7%86%e5%9b%be" rel="tag">视图</a> ,
-                            <a href="http://laravelacademy.org/tags/%e9%9d%99%e6%80%81%e7%ab%99%e7%82%b9" rel="tag">静态站点</a>
+                            @if($item['tag'])
+                            @foreach($item->tag as $tag)
+                            <a href="http://laravelacademy.org/tags/{{$tag->name}}" rel="tag">{{$tag->name}}</a> ,
+                            @endforeach
+                            @endif
+                           <!--  <a href="http://laravelacademy.org/tags/jigsaw" rel="tag">Jigsaw</a> ,
+                           <a href="http://laravelacademy.org/tags/laravel" rel="tag">Laravel</a> ,
+                           <a href="http://laravelacademy.org/tags/%e5%b8%83%e5%b1%80" rel="tag">布局</a> ,
+                           <a href="http://laravelacademy.org/tags/%e8%a7%86%e5%9b%be" rel="tag">视图</a> ,
+                           <a href="http://laravelacademy.org/tags/%e9%9d%99%e6%80%81%e7%ab%99%e7%82%b9" rel="tag">静态站点</a> -->
                         </span>
                         <span class="comments-link">
                             <i class="glyphicon ipt-icon-bubbles2"></i>

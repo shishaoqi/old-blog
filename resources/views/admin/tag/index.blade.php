@@ -47,7 +47,7 @@
                                     <i class="fa fa-pencil"></i>
                                 </a>
                                 
-                                <a class="btn-xs tooltips" onclick="showAjaxDeleteModal($(this), {{$item['id']}});" data-placement="top" data-original-title="删除" data-id="3" href="javascript:;">
+                                <a class="btn-xs tooltips" onclick="showAjaxDeleteModal($(this), {{$item['id']}});" data-placement="top" data-original-title="删除" href="javascript:;">
                                     <i class="fa fa-trash"></i>
                                 </a>
                                
