@@ -119,7 +119,7 @@
 <link rel="stylesheet" href="{{asset('backend/js/editormd/css/editormd.css')}}" />
 
 <!-- Imported scripts on this page -->
-<script src="{{asset('backend/js/multiselect/js/jquery.multi-select.js')}}"></script>//会与editormd.js 相冲突 
+<script src="{{asset('backend/js/multiselect/js/jquery.multi-select.js')}}"></script><!-- 会与editormd.js 相冲突  -->
 <script src="{{asset('backend/js/editormd/editormd.js')}}"></script>
 
 <script type="text/javascript">
