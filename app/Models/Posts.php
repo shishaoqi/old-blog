@@ -3,7 +3,7 @@
  * @Author: shishaoqi
  * @Date:   2016-07-01 11:55:18
  * @Last Modified by:   shishao
- * @Last Modified time: 2016-12-16 02:06:47
+ * @Last Modified time: 2016-12-19 23:07:10
  */
 namespace App\Models;
 
@@ -23,6 +23,14 @@ class Posts extends Model
     public function category()
     {
         return $this->hasOne('App\Models\Category','id','cate_id');
+    }
+
+    /**
+     * admins
+     * @return [type] [description]
+     */
+    public function adminUser(){
+        return $this->hasOne('App\Models\Admins','id','user_id');
     }
 
     public static function test(){

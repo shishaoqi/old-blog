@@ -78,7 +78,7 @@
                 @foreach($posts as $item)
                 <h2><a href="{{url('front/post/'.$item["id"])}}">{{$item['title']}}</a></h2>
                 <p>
-                    <span class="glyphicon glyphicon-time"></span> Posted on {{$item['created_at']}} by <a href="index.php">Start Bootstrap</a>
+                    <span class="glyphicon glyphicon-time"></span> Posted on {{$item['created_at']}} by <a href="index.php">{{$item->adminUser->name}}</a>
                 </p>
                 <hr>
                 <div class="pull-left kb-thumb-medium hidden-xs">
@@ -171,7 +171,7 @@
                 <hr> -->
 
                 <!-- Pager -->
-                <ul class="pager">
+                <!-- <ul class="pager">
                     <li class="previous">
                         <a href="#">&larr; Older</a>
                     </li>
@@ -179,8 +179,8 @@
                         <a href="#">Newer &rarr;</a>
                     </li>
                 </ul>
-
-                <div class="page-control">
+                 -->
+                <!-- <div class="page-control">
                     <ul class="pagination pull-right">
                         <li class="active">
                             <a href="javascript:;">1</a>
@@ -201,8 +201,12 @@
                             <a href="http://wenda.golaravel.com/sort_type-new__day-0__is_recommend-0__page-52">>></a>
                         </li>
                     </ul>
+                </div> -->
+                <div class="page-control pull-right">
+                    @if($posts)
+                    {!! $posts->fragment('foo')->links() !!}
+                    @endif
                 </div>
-
             </div>
 
             <!-- Blog Sidebar Widgets Column -->
