@@ -1,0 +1,16 @@
+laravel加载配置文件的过程：
+
+    index.php 
+    ---> 
+    /* Illuminate\Foundation\Http\Kernel.php */
+    $kernel->handle($request = Illuminate\Http\Request::capture())
+    ---> 
+    handle(){$this->sendRequestThroughRouter()} 
+    ---> 
+    /* Illuminate\Foundation\Application.php */
+    sendRequestThroughRouter(){$this->bootstrap()} 
+    ---> 
+    bootstrap(){$this->app->bootstrapWith()}
+    --->  
+    /* Illuminate\Foundation\Bootstrap\LoadConfigutation.php */
+    bootstrapWith() /* Facades Illumination\Foundation\Bootstrap\RegisterFacades */
