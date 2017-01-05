@@ -2,6 +2,10 @@ laravel加载配置文件的过程：
 
     index.php 
     ---> 
+    $app = new Illuminate\Foundation\Application(
+        realpath(__DIR__.'/../')
+    );
+    --->
     /* Illuminate\Foundation\Http\Kernel.php */
     $kernel->handle($request = Illuminate\Http\Request::capture())
     ---> 

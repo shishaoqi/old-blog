@@ -1,6 +1,32 @@
 /*---------------------------------------------
             Container.php
 ----------------------------------------------*/
+#@->1
+$app['app'] 
+--->
+/**
+ * Get the value at a given offset.
+ *
+ * @param  string  $key
+ * @return mixed
+ */
+public function offsetGet($key)
+{
+    return $this->make($key);
+}
+
+$app->app
+/**
+ * Dynamically access container services.
+ *
+ * @param  string  $key
+ * @return mixed
+ */
+public function __get($key)
+{
+    return $this[$key];
+    //$this[$key]  turn #@->1
+}
 
 /**
  * Get the alias for an abstract if available.
