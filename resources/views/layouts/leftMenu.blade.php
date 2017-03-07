@@ -14,7 +14,7 @@
             </li>
             <li>
                 <a href="{{url('admin/article')}}">
-                    <span class="title">文章管理</span>
+                    <span class="title">文章列表</span>
                 </a>
             </li>
             <li>
@@ -31,28 +31,28 @@
         </a>
         <ul>
             <li>
-                <a href="charts-main.html">
-                    <span class="title">用户管理</span>
+                <a href="{{url('admin/user/manage')}}">
+                    <span class="title">用户列表</span>
                 </a>
             </li>
             <li>
                 <a href="charts-range.html">
-                    <span class="title">角色管理</span>
+                    <span class="title">角色列表</span>
                 </a>
             </li>
             <li>
                 <a href="charts-sparklines.html">
-                    <span class="title">权限管理</span>
+                    <span class="title">权限列表</span>
                 </a>
             </li>
             <li>
                 <a href="charts-map.html">
-                    <span class="title">系统日志管理</span>
+                    <span class="title">系统日志</span>
                 </a>
             </li>
             <li>
                 <a href="charts-gauges.html">
-                    <span class="title">菜单管理</span>
+                    <span class="title">菜单列表</span>
                 </a>
             </li>
         </ul>

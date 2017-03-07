@@ -49,9 +49,36 @@ Route::group(['middleware' => ['admin.auth:admin'], 'prefix' => 'admin', 'namesp
 	Route::get('index', 'AdminController@index');
 	Route::get('check', 'AdminController@check');
 
+	//分类路由
 	Route::resource('category', 'CategoryController');
+
+	//文章路由
 	Route::post('article/uploadImg/{guid?}', 'ArticleController@uploadImg');
 	Route::resource('article', 'ArticleController');
 
+	//标签路由
 	Route::resource('tag', 'TagController');
+
+	//用户管理路由
+    Route::get('user/manage', ['as' => 'admin.user.manage', 'uses' => 'UserController@index']);  //用户管理
+    Route::post('user/index', ['as' => 'admin.user.index', 'uses' => 'UserController@index']);
+    Route::resource('user', 'UserController');
+    Route::put('user/update', ['as' => 'admin.user.edit', 'uses' => 'UserController@update']); //修改
+    Route::post('user/store', ['as' => 'admin.user.create', 'uses' => 'UserController@store']); //添加
+
+    //权限管理路由
+    Route::get('permission/{cid}/create', ['as' => 'admin.permission.create', 'uses' => 'PermissionController@create']);
+    Route::get('permission/{cid?}', ['as' => 'admin.permission.index', 'uses' => 'PermissionController@index']);
+    Route::post('permission/index', ['as' => 'admin.permission.index', 'uses' => 'PermissionController@index']); //查询
+    Route::resource('permission', 'PermissionController');
+    Route::put('permission/update', ['as' => 'admin.permission.edit', 'uses' => 'PermissionController@update']); //修改
+    Route::post('permission/store', ['as' => 'admin.permission.create', 'uses' => 'PermissionController@store']); //添加
+
+    //角色管理路由
+    Route::get('role/index', ['as' => 'admin.role.index', 'uses' => 'RoleController@index']);
+    Route::post('role/index', ['as' => 'admin.role.index', 'uses' => 'RoleController@index']);
+    Route::resource('role', 'RoleController');
+    Route::put('role/update', ['as' => 'admin.role.edit', 'uses' => 'RoleController@update']); //修改
+    Route::post('role/store', ['as' => 'admin.role.create', 'uses' => 'RoleController@store']); //添加
+
 });
