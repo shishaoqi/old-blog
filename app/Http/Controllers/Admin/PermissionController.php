@@ -9,7 +9,7 @@ use App\Http\Requests;
 use App\Http\Requests\PermissionCreateRequest;
 use App\Http\Requests\PermissionUpdateRequest;
 use App\Http\Controllers\Controller;
-use App\Models\Permission;
+use App\Models\AdminPermission as Permission;
 use Cache,Event;
 class PermissionController extends Controller
 {

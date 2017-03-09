@@ -41,7 +41,7 @@
                 </a>
             </li>
             <li>
-                <a href="charts-sparklines.html">
+                <a href="{{url('admin/permission/manage')}}">
                     <span class="title">权限列表</span>
                 </a>
             </li>
