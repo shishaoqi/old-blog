@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Events\permChangeEvent;
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\PermissionCreateRequest;
 use App\Http\Requests\PermissionUpdateRequest;
-use App\Http\Controllers\Controller;
-use App\Models\Permission;
-use Cache,Event;
+use App\Models\AdminPermission as Permission;
+use Event;
+use Illuminate\Http\Request;
+
 class PermissionController extends Controller
 {
     protected $fields = [
@@ -18,9 +17,8 @@ class PermissionController extends Controller
         'display_name' => '',
         'description' => '',
         'cid' => 0,
-        'icon'=>'',
+        'icon' => '',
     ];
-
 
     /**
      * Display a listing of the resource.
@@ -29,7 +27,7 @@ class PermissionController extends Controller
      */
     public function index(Request $request, $cid = 0)
     {
-        $cid = (int)$cid;
+        $cid = (int) $cid;
         if ($request->ajax()) {
             $data = array();
             $data['draw'] = $request->get('draw');
@@ -56,17 +54,21 @@ class PermissionController extends Controller
             } else {
                 $data['recordsFiltered'] = Permission::where('cid', $cid)->count();
                 $data['data'] = Permission::where('cid', $cid)->
-                skip($start)->take($length)
+                    skip($start)->take($length)
                     ->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])
                     ->get();
             }
             return response()->json($data);
         }
+
         $datas['cid'] = $cid;
         if ($cid > 0) {
             $datas['data'] = Permission::find($cid);
         }
+
+//dd($datas);
         return view('admin.permission.index', $datas);
+        //return view('admin.permission.index');
     }
 
     /**
@@ -80,7 +82,7 @@ class PermissionController extends Controller
         foreach ($this->fields as $field => $default) {
             $data[$field] = old($field, $default);
         }
-        $data['cid'] = (int)$cid;
+        $data['cid'] = (int) $cid;
         return view('admin.permission.create', $data);
     }
 
@@ -121,9 +123,12 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        $permission = Permission::find((int)$id);
-        if (!$permission) return redirect('/admin/permission')->withErrors("找不到该权限!");
-        $data = ['id' => (int)$id];
+        $permission = Permission::find((int) $id);
+        if (!$permission) {
+            return redirect('/admin/permission')->withErrors("找不到该权限!");
+        }
+
+        $data = ['id' => (int) $id];
         foreach (array_keys($this->fields) as $field) {
             $data[$field] = old($field, $permission->$field);
         }
@@ -140,7 +145,7 @@ class PermissionController extends Controller
      */
     public function update(PermissionUpdateRequest $request, $id)
     {
-        $permission = Permission::find((int)$id);
+        $permission = Permission::find((int) $id);
         foreach (array_keys($this->fields) as $field) {
             $permission->$field = $request->get($field);
         }
@@ -163,7 +168,7 @@ class PermissionController extends Controller
             return redirect()->back()
                 ->withErrors("请先将该权限的子权限删除后再做删除操作!");
         }
-        $tag = Permission::find((int)$id);
+        $tag = Permission::find((int) $id);
         if ($tag) {
             $tag->delete();
         } else {
