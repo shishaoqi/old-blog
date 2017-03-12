@@ -6,7 +6,7 @@ use App\Events\permChangeEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PermissionCreateRequest;
 use App\Http\Requests\PermissionUpdateRequest;
-use App\Models\AdminPermission as Permission;
+use App\Models\Permission;
 use Event;
 use Illuminate\Http\Request;
 
@@ -17,7 +17,7 @@ class PermissionController extends Controller
         'display_name' => '',
         'description' => '',
         'cid' => 0,
-        'icon' => '',
+        //'icon' => '',//了解下
     ];
 
     /**
@@ -66,9 +66,7 @@ class PermissionController extends Controller
             $datas['data'] = Permission::find($cid);
         }
 
-//dd($datas);
         return view('admin.permission.index', $datas);
-        //return view('admin.permission.index');
     }
 
     /**
@@ -100,7 +98,7 @@ class PermissionController extends Controller
             $permission->$field = $request->get($field);
         }
         $permission->save();
-        Event::fire(new permChangeEvent());
+        //Event::fire(new permChangeEvent());
         return redirect('/admin/permission/' . $permission->cid)->withSuccess('添加成功！');
     }
 

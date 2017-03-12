@@ -36,7 +36,7 @@
                 </a>
             </li>
             <li>
-                <a href="charts-range.html">
+                <a href="{{url('admin/role/index')}}">
                     <span class="title">角色列表</span>
                 </a>
             </li>
