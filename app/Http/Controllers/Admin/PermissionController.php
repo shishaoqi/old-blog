@@ -39,24 +39,24 @@ class PermissionController extends Controller
             $cid = $request->get('cid', 0);
             $data['recordsTotal'] = Permission::where('cid', $cid)->count();
             if (strlen($search['value']) > 0) {
-                $data['recordsFiltered'] = Permission::where('cid', $cid)->where(function ($query) use ($search) {
-                    $query
-                        ->where('name', 'LIKE', '%' . $search['value'] . '%')
-                        ->orWhere('description', 'like', '%' . $search['value'] . '%');
-                })->count();
-                $data['data'] = Permission::where('cid', $cid)->where(function ($query) use ($search) {
-                    $query->where('name', 'LIKE', '%' . $search['value'] . '%')
-                        ->orWhere('description', 'like', '%' . $search['value'] . '%');
-                })
-                    ->skip($start)->take($length)
-                    ->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])
-                    ->get();
+                $data['recordsFiltered'] = Permission::where('cid', $cid)->where(
+                    function ($query) use ($search) {
+                        $query->where('name', 'LIKE', '%' . $search['value'] . '%')->orWhere('description', 'like', '%' . $search['value'] . '%');
+                    }
+                )->count();
+
+                $data['data'] = Permission::where('cid', $cid)->where(
+                    function ($query) use ($search) {
+                        $query->where('name', 'LIKE', '%' . $search['value'] . '%')->orWhere('description', 'like', '%' . $search['value'] . '%');
+                    }
+                )->skip($start)->take($length)->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])->get();
             } else {
                 $data['recordsFiltered'] = Permission::where('cid', $cid)->count();
-                $data['data'] = Permission::where('cid', $cid)->
-                    skip($start)->take($length)
-                    ->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])
-                    ->get();
+                if($columns[$order[0]['column']]['data'] || $order[0]['dir']){
+                    $data['data'] = Permission::where('cid', $cid)->skip($start)->take($length)->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])->get();
+                }else{
+                    $data['data'] = Permission::where('cid', $cid)->skip($start)->take($length)->get();
+                }
             }
             return response()->json($data);
         }
@@ -148,7 +148,7 @@ class PermissionController extends Controller
             $permission->$field = $request->get($field);
         }
         $permission->save();
-        Event::fire(new permChangeEvent());
+        //Event::fire(new permChangeEvent());
         return redirect('admin/permission/' . $permission->cid)->withSuccess('修改成功！');
     }
 
@@ -163,18 +163,15 @@ class PermissionController extends Controller
         $child = Permission::where('cid', $id)->first();
 
         if ($child) {
-            return redirect()->back()
-                ->withErrors("请先将该权限的子权限删除后再做删除操作!");
+            return redirect()->back()->withErrors("请先将该权限的子权限删除后再做删除操作!");
         }
         $tag = Permission::find((int) $id);
         if ($tag) {
             $tag->delete();
         } else {
-            return redirect()->back()
-                ->withErrors("删除失败");
+            //return redirect()->back()->withErrors("删除失败");
         }
-        Event::fire(new permChangeEvent());
-        return redirect()->back()
-            ->withSuccess("删除成功");
+        //Event::fire(new permChangeEvent());
+        //return redirect()->back()->withSuccess("删除成功");
     }
 }

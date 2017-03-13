@@ -174,7 +174,7 @@
 
                         //删除
                         if (row_delete) {
-                            str += '<a style="margin:3px;" href="#" attr="' + row['id'] + '" class="delBtn X-Small btn-xs text-danger"><i class="fa fa-times-circle"></i> 删除</a>';
+                            str += '<a style="margin:3px;" href="javascript:;" data-url="{{url('admin/permission')}}/' + row['id'] + '" csrf_token="' + csrf_token + '" class="delBtn X-Small btn-xs text-danger" onClick="deleteAlert($(this))" title="确定要删除此权限？"><i class="fa fa-times-circle"></i> 删除</a>';
                         }
 
                         return str;
@@ -197,12 +197,12 @@
             });
         }).draw();
 
-        $("table").delegate('.delBtn', 'click', function () {
+        /*$("table").delegate('.delBtn', 'click', function () {
             var id = $(this).attr('attr');
-            $('.deleteForm').attr('action', "{{url('admin/permission')}}/" + id);
+            $('.deleteForm').attr('action', '/admin/permission/' + id);
             $("#modal-delete").modal();
-        });
-         
+        });*/
+
         /*$('#example-1 tbody').on('click', 'tr', function () {
             var data = table.row( this ).data();
             alert( 'You clicked on '+data[0]+'\'s row' );
