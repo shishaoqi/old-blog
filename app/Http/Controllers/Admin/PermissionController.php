@@ -58,6 +58,7 @@ class PermissionController extends Controller
                     $data['data'] = Permission::where('cid', $cid)->skip($start)->take($length)->get();
                 }
             }
+            
             return response()->json($data);
         }
 

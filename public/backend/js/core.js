@@ -2,7 +2,7 @@
 * @Author: shishao
 * @Date:   2017-03-11 21:41:48
 * @Last Modified by:   shishao
-* @Last Modified time: 2017-03-14 00:59:40
+* @Last Modified time: 2017-03-16 01:16:46
 */
 $.fn.extend({
     formAjax: function() {
@@ -256,9 +256,10 @@ function initUI(csrf_token) {
             var options = {};
             var w = thisObj.attr("width") || 'auto';
             var h = thisObj.attr("height") || 'auto';
+            var actionType = thisObj.attr("action-type") || 'POST';
             var html;
             $.ajax({
-                type: 'POST',
+                type: actionType,
                 url: url,
                 dataType: "html",
                 data:{_token: csrf_token},

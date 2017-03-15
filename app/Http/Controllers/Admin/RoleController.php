@@ -17,7 +17,6 @@ class RoleController extends Controller
         'name' => '',
         'display_name' => '',
         'description' => '',
-        'perms' => [],
     ];
 
 
@@ -39,16 +38,12 @@ class RoleController extends Controller
             $data['recordsTotal'] = Role::count();
             if (strlen($search['value']) > 0) {
                 $data['recordsFiltered'] = Role::where(function ($query) use ($search) {
-                    $query->where('name', 'LIKE', '%' . $search['value'] . '%')
-                        ->orWhere('description', 'like', '%' . $search['value'] . '%');
+                    $query->where('name', 'LIKE', '%' . $search['value'] . '%')->orWhere('description', 'like', '%' . $search['value'] . '%');
                 })->count();
+
                 $data['data'] = Role::where(function ($query) use ($search) {
-                    $query->where('name', 'LIKE', '%' . $search['value'] . '%')
-                        ->orWhere('description', 'like', '%' . $search['value'] . '%');
-                })
-                    ->skip($start)->take($length)
-                    ->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])
-                    ->get();
+                    $query->where('name', 'LIKE', '%' . $search['value'] . '%')->orWhere('description', 'like', '%' . $search['value'] . '%');
+                })->skip($start)->take($length)->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir']) ->get();
             } else {
                 $data['recordsFiltered'] = Role::count();
                 $data['data'] = Role::skip($start)->take($length)->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir'])->get();

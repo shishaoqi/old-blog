@@ -21,7 +21,7 @@
     
     <div class="breadcrumb-env">
         <div class="col-md-6 text-right">
-            <a href="{{url('admin/role/create')}}" class="btn btn-success btn-md" target="dialog" action-type="GET" width="750px"><i class="fa fa-plus-circle"></i> 添加角色 </a>
+            <a href="#" class="btn btn-success btn-md"><i class="fa fa-plus-circle"></i> 添加角色 </a>
         </div>
     </div>
         
@@ -70,7 +70,6 @@
             </tfoot>
         
             <tbody>
-
             </tbody>
         </table>
         
@@ -88,7 +87,6 @@
 
 
     jQuery(document).ready(function($) {
-        var csrf_token = "{{csrf_token()}}";
         /*$("#example-1").dataTable({
             aLengthMenu: [
                 [10, 25, 50, 100, -1],
@@ -145,13 +143,18 @@
             columnDefs: [
                 {
                     'targets': -1, "render": function (data, type, row) {
-                        var row_edit = 1;//{{Gate::forUser(auth('admin')->user())->check('admin.role.edit') ? 1 : 0}};
-                        var row_delete = 1;//{{Gate::forUser(auth('admin')->user())->check('admin.role.destroy') ? 1 :0}};
+                        var row_edit = {{Gate::forUser(auth('admin')->user())->check('admin.role.edit') ? 1 : 0}};
+                        var row_delete = {{Gate::forUser(auth('admin')->user())->check('admin.role.destroy') ? 1 :0}};
                         var str = '';
 
+                        //下级菜单
+                        /*if (cid == 0) {
+                            str += '<a style="margin:3px;"  href="{{url('admin/role')}}/' + row['id'] + '" class="X-Small btn-xs text-success "><i class="fa fa-adn"></i>下级菜单</a>';
+                        }
+*/
                         //编辑
                         if (row_edit) {
-                            str += '<a style="margin:3px;" href="/admin/role/' + row['id'] + '/edit" class="X-Small btn-xs text-success "><i class="fa fa-edit"></i> 编辑</a>';
+                            str += '<a style="margin:3px;" href="{{url('admin/role')}}/' + row['id'] + '/edit" class="X-Small btn-xs text-success "><i class="fa fa-edit"></i> 编辑</a>';
                         }
 
                         //删除
@@ -160,6 +163,7 @@
                         }
 
                         return str;
+
                     }
                 }
             ],
@@ -179,12 +183,11 @@
             });
         }).draw();
 
-        /*$("table").delegate('.delBtn', 'click', function () {
+        $("table").delegate('.delBtn', 'click', function () {
             var id = $(this).attr('attr');
             $('.deleteForm').attr('action', "{{url('admin/role')}}/" + id);
             $("#modal-delete").modal();
-        });*/
-        initUI(csrf_token);
+        });
     });
 </script>
 
