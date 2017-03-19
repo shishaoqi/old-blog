@@ -2,7 +2,7 @@
 * @Author: shishao
 * @Date:   2017-03-11 21:41:48
 * @Last Modified by:   shishao
-* @Last Modified time: 2017-03-16 01:16:46
+* @Last Modified time: 2017-03-19 21:36:19
 */
 $.fn.extend({
     formAjax: function() {
@@ -144,24 +144,6 @@ function AjaxTodo(url, callback) {
     });
 }
 
-function AjaxDelete(url, callback, csrf_token) {
-    $.ajax({
-        type: "POST",
-        url: url,
-        dataType: "json",
-        cache: false,
-        data:{'_token': csrf_token, '_method': 'DELETE'},
-        //success: $callback,
-        success: function(){
-            window.location.reload();
-        },
-        //error: AjaxError
-        error: function(){
-            //alert('error');
-            window.location.reload();
-        }
-    });
-}
 
 //确定是否是扩展jQuery,是：直接调用
 if ($.fn.formAjax) $("form[target=formAjax]").formAjax();
@@ -216,12 +198,13 @@ function dialog(obj) {
                 btnAlign: 'c',
                 btn2: function(index, layero){//按钮【按钮二】的回调
                     layero.find('form').submit();
-                    //return false 开启该代码可禁止点击该按钮关闭
+                    return false //开启该代码可禁止点击该按钮关闭
                 }
             });
         },
         error: AjaxError
     });
+
     return false;
 }
 
@@ -240,6 +223,24 @@ function deleteAlert(obj){
     }
 }
 
+function AjaxDelete(url, callback, csrf_token) {
+    $.ajax({
+        type: "POST",
+        url: url,
+        dataType: "json",
+        cache: false,
+        data:{'_token': csrf_token, '_method': 'DELETE'},
+        //success: $callback,
+        success: function(){
+            window.location.reload();
+        },
+        //error: AjaxError
+        error: function(){
+            alert('error');
+            window.location.reload();
+        }
+    });
+}
 
 function initUI(csrf_token) {
     /**

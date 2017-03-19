@@ -55,5 +55,6 @@ class Kernel extends HttpKernel
 
         //开发新增
         'admin.auth' => \App\Http\Middleware\AdminAuthenticate::class,
+        'menu'=>\App\Http\Middleware\MenuInit::class,
     ];
 }

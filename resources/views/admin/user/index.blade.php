@@ -1,10 +1,6 @@
 @extends('layouts.admin') @section('content')
 <div class="page-title">
     <div class="title-env">
-        <h1 class="title">Responsive Table</h1>
-        <p class="description">An example of responsive table with fixed header</p>
-    </div>
-    <div class="breadcrumb-env">
         <ol class="breadcrumb bc-1">
             <li>
                 <a href="dashboard-1.html"><i class="fa-home"></i>Home</a>
@@ -16,6 +12,12 @@
                 <strong>Responsive Table</strong>
             </li>
         </ol>
+    </div>
+    <div class="breadcrumb-env">
+        <a href="{{url('admin/user/create')}}" class="btn btn-default" target="dialog"  width="400px" action-type="GET">
+            <i class="fa fa-plus"></i>
+            新增
+        </a>
     </div>
 </div>
 
@@ -69,7 +71,7 @@
                                 <td>{{$item['email']}}</td>
                                 <td>{{$item['created_at']}}</td>
                                 <td>
-                                    <a href="{{url('admin/article/'.$item["id"].'/edit')}}" class="btn btn-secondary btn-sm btn-icon icon-left">
+                                    <a href="{{url('admin/user/'.$item["id"].'/edit')}}" class="btn btn-secondary btn-sm btn-icon icon-left" target="dialog" width="400px" action-type="GET">
                                         编辑
                                     </a>
                                     <a href="javascript:;" class="btn btn-danger btn-sm btn-icon icon-left" onclick="showAjaxDeleteModal({{$item['id']}}, $(this));">
@@ -88,6 +90,9 @@
                 <script type="text/javascript">
                 // This JavaScript Will Replace Checkboxes in dropdown toggles
                 jQuery(document).ready(function($) {
+                    var csrf_token = "{{csrf_token()}}";
+                    initUI(csrf_token);
+
                     setTimeout(function() {
                         $(".checkbox-row input").addClass('cbr');
                         cbr_replace();
@@ -100,7 +105,9 @@
 </div>
 <!-- Imported scripts on this page -->
 <script src="{{asset('backend/js/rwd-table/js/rwd-table.min.js')}}"></script>
+<script src="{{asset('backend/js/layer/layer.js')}}"></script>
 
 <!-- JavaScripts initializations and stuff -->
 <script src="{{asset('backend/js/xenon-custom.js')}}"></script>
+<script src="{{asset('backend/js/core.js')}}"></script>
 @endsection

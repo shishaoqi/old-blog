@@ -32,9 +32,12 @@ class RoleController extends Controller
             $data['draw'] = $request->get('draw');
             $start = $request->get('start');
             $length = $request->get('length');
-            $order = $request->get('order');
+            $order = $request->get('order') ? $request->get('order') : [0 => ["column" => "1" ,"dir" => "asc"]];
+            //var_dump($order);
             $columns = $request->get('columns');
+            //dd($columns);
             $search = $request->get('search');
+            //dd($search);
             $data['recordsTotal'] = Role::count();
             if (strlen($search['value']) > 0) {
                 $data['recordsFiltered'] = Role::where(function ($query) use ($search) {
@@ -76,22 +79,46 @@ class RoleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param PremissionCreateRequest|Request $request
+     * @param RoleCreateRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    /*public function store(RoleCreateRequest $request)
     {
         // dd($request->get('permission'));
         $role = new Role();
-       foreach (array_keys($this->fields) as $field) {
+        foreach (array_keys($this->fields) as $field) {
             $role->$field = $request->get($field);
         }
-        unset($role->perms);
+        unset($role->permissions);
         // dd($request->get('permission'));
         $role->save();
         if (is_array($request->get('permissions'))) {
-            $role->givePermissionsTo($request->get('permissions'));
+            $role->permissions()->sync($request->get('permissions',[]));
         }
+        //event(new \App\Events\userActionEvent('\App\Models\Admin\Role',$role->id,1,"用户".Auth::user()->username."{".Auth::user()->id."}添加角色".$role->name."{".$role->id."}"));
+        return redirect('/admin/role')->withSuccess('添加成功！');
+    }*/
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(RoleCreateRequest $request)
+    {
+        $role = new Role();
+        foreach (array_keys($this->fields) as $field) {
+            $role->$field = $request->get($field);
+        }
+        //unset($role->permissions);
+        $role->save();
+        //dd($role);
+ 
+        foreach ($request->get('permissions') as $key => $value) {
+            $role->attachPermission($value);
+        }
+ 
         return redirect('/admin/role')->withSuccess('添加成功！');
     }
 
@@ -114,16 +141,15 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-
         $role = Role::find((int)$id);
         if (!$role) return redirect('/admin/role')->withErrors("找不到该角色!");
         $permissions = [];
-        if ($role->perms) {
-            foreach ($role->perms as $v) {
+        if ($role->permissions) {
+            foreach ($role->permissions as $v) {
                 $permissions[] = $v->id;
             }
         }
-        $role->perms = $permissions;
+        $role->permissions = $permissions;
         foreach (array_keys($this->fields) as $field) {
             $data[$field] = old($field, $role->$field);
         }
@@ -132,6 +158,7 @@ class RoleController extends Controller
             $data['permissionAll'][$v['cid']][] = $v;
         }
         $data['id'] = (int)$id;
+        $data['permissions'] = $permissions;
         return view('admin.role.edit', $data);
     }
 
@@ -144,14 +171,20 @@ class RoleController extends Controller
      */
     public function update(RoleUpdateRequest $request, $id)
     {
+
         $role = Role::find((int)$id);
         foreach (array_keys($this->fields) as $field) {
             $role->$field = $request->get($field);
         }
-        unset($role->perms);
-        $role->save();
-        $role->givePermissionsTo($request->get('permissions',[]));
-        
+        //dd($role);
+        unset($role->permissions);
+        $role->update();
+
+        /*foreach ($request->get('permissions',[]) as $key => $value) {
+            $role->attachPermission($value);
+        }*/
+        $role->permissions()->sync($request->get('permissions',[]));
+        //event(new \App\Events\userActionEvent('\App\Models\Admin\Role',$role->id,3,"用户".Auth::user()->username."{".Auth::user()->id."}编辑角色".$role->name."{".$role->id."}"));
         return redirect('/admin/role')->withSuccess('修改成功！');
     }
 
@@ -167,11 +200,15 @@ class RoleController extends Controller
         if ($role) {
             $role->delete();
         } else {
-            return redirect()->back()
-                ->withErrors("删除失败");
+            //return redirect()->back()->withErrors("删除失败");
+            return ['删除失败'];
         }
 
-        return redirect()->back()
-            ->withSuccess("删除成功");
+        //return redirect()->back()->withSuccess("删除成功");
+        return ['删除成功'];
+        /*$role = Role::findOrFail(intval($id)); // Pull back a given role
+
+        // Regular Delete
+        $role->delete(); // This will work no matter what*/
     }
 }

@@ -43,7 +43,7 @@ Route::get('admin/logout', 'Admin\AuthController@logout');
 Route::get('admin/register', 'Admin\AuthController@getRegister');
 Route::post('admin/register', 'Admin\AuthController@postRegister');
 
-Route::group(['middleware' => ['admin.auth:admin'], 'prefix' => 'admin', 'namespace' => 'Admin'], function () {//'web', 
+Route::group(['middleware' => ['admin.auth:admin', 'menu'], 'prefix' => 'admin', 'namespace' => 'Admin'], function () {//'web', 
 	//admin.auth:admin
 	Route::get('', 'AdminController@index');
 	Route::get('index', 'AdminController@index');

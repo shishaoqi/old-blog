@@ -21,7 +21,7 @@
     
     <div class="breadcrumb-env">
         <div class="col-md-6 text-right">
-            <a href="{{url('admin/role/create')}}" class="btn btn-success btn-md" target="dialog" action-type="GET" width="750px"><i class="fa fa-plus-circle"></i> 添加角色 </a>
+            <a href="{{url('admin/role/create')}}" class="btn btn-success btn-md" target="dialog" action-type="GET" width="850px"><i class="fa fa-plus-circle"></i> 添加角色 </a>
         </div>
     </div>
         
@@ -122,6 +122,7 @@
                     }
                 },
             order: [[1, "asc"]],
+            stateSave: true,
             serverSide: true,
             ajax: {
                     url: "{{url('admin/role/index')}}",
@@ -151,12 +152,12 @@
 
                         //编辑
                         if (row_edit) {
-                            str += '<a style="margin:3px;" href="/admin/role/' + row['id'] + '/edit" class="X-Small btn-xs text-success "><i class="fa fa-edit"></i> 编辑</a>';
+                            str += '<a style="margin:3px;" href="javascript:;" url="{{url('admin/role')}}/' + row['id'] + '/edit" class="X-Small btn-xs text-success" onClick="dialog($(this))" width="850px"><i class="fa fa-edit"></i> 编辑</a>';
                         }
 
                         //删除
                         if (row_delete) {
-                            str += '<a style="margin:3px;" href="#" attr="' + row['id'] + '" class="delBtn X-Small btn-xs text-danger"><i class="fa fa-times-circle"></i> 删除</a>';
+                            str += '<a style="margin:3px;" href="javascript:;" data-url="{{url('admin/role')}}/' + row['id'] + '" csrf_token="' + csrf_token + '" class="delBtn X-Small btn-xs text-danger" onClick="deleteAlert($(this))" title="确定要删除此角色？"><i class="fa fa-times-circle"></i> 删除</a>';
                         }
 
                         return str;
