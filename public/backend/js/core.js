@@ -2,7 +2,7 @@
 * @Author: shishao
 * @Date:   2017-03-11 21:41:48
 * @Last Modified by:   shishao
-* @Last Modified time: 2017-03-19 21:36:19
+* @Last Modified time: 2017-03-20 23:10:20
 */
 $.fn.extend({
     formAjax: function() {
@@ -35,10 +35,16 @@ $.fn.extend({
                 event.preventDefault();
                 var url = $this.attr("href");
                 var title = $this.attr("title");
+                var isDelete = $this.attr("delete-action");
+                var csrf_token = $this.attr("csrf_token");
                 if (title) {
                     layer.confirm(title, function(index) {
                         layer.close(index);
-                        AjaxTodo(url, $this.attr("callback"));
+                        if(isDelete == 'delete'){
+                            AjaxDelete(url, $this.attr("callback"), csrf_token);
+                        }else{
+                            AjaxTodo(url, $this.attr("callback"));
+                        }
                     });
                 } else {
                     AjaxTodo(url, $this.attr("callback"));
@@ -224,12 +230,17 @@ function deleteAlert(obj){
 }
 
 function AjaxDelete(url, callback, csrf_token) {
+    var data = {'_method': 'DELETE'};
+    if(csrf_token != ''){
+        data['_token'] = csrf_token;
+    }
+    
     $.ajax({
         type: "POST",
         url: url,
         dataType: "json",
         cache: false,
-        data:{'_token': csrf_token, '_method': 'DELETE'},
+        data: data,
         //success: $callback,
         success: function(){
             window.location.reload();

@@ -14,7 +14,7 @@
         </ol>
     </div>
     <div class="breadcrumb-env">
-        <a href="{{url('admin/user/create')}}" class="btn btn-default" target="dialog"  width="400px" action-type="GET">
+        <a href="{{url('admin/user/create')}}" class="btn btn-default" target="dialog"  width="500px" action-type="GET">
             <i class="fa fa-plus"></i>
             新增
         </a>
@@ -56,13 +56,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- <tr>
-                                <td>597.74</td>
-                                <td>12:12PM</td>
-                                <td>14.81 (2.54%)</td>
-                                <td>582.93</td>
-                                <td>597.95</td>
-                            </tr> -->
                             @if($users) 
                             @foreach($users as $item)
                             <tr>
@@ -74,7 +67,7 @@
                                     <a href="{{url('admin/user/'.$item["id"].'/edit')}}" class="btn btn-secondary btn-sm btn-icon icon-left" target="dialog" width="400px" action-type="GET">
                                         编辑
                                     </a>
-                                    <a href="javascript:;" class="btn btn-danger btn-sm btn-icon icon-left" onclick="showAjaxDeleteModal({{$item['id']}}, $(this));">
+                                    <a href="{{url('admin/user/'.$item["id"])}}" class="btn btn-danger btn-sm btn-icon icon-left" target="ajaxTodo" delete-action="delete" title="确定要删除此用户吗？" csrf_token="{{csrf_token()}}">
                                         删除
                                     </a>
                                     <a href="#" class="btn btn-info btn-sm btn-icon icon-left">

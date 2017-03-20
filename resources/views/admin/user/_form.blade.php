@@ -18,14 +18,17 @@
 </div>
 <div class="form-group">
     <label class="col-sm-3 control-label">角色</label>
-    <div class="col-sm-8">
-        <select class="form-control">
+    <div class="col-sm-9">
             @if($roles) 
             @foreach($roles as $item)
-            <option value="{{$item['id']}}">{{$item['name']}}</option>
+            <div class="col-md-4" style="float:left;">
+                <span class="checkbox-custom checkbox-default">
+                    <input class="form-actions" id="inputChekbox{{$item['id']}}" type="Checkbox" value="{{$item['id']}}" name="roles[]" @if(isset($adminRole)) @if(in_array($item['id'], $adminRole)) checked @endif @endif>
+                    <label for="inputChekbox{{$item['id']}}">{{$item['name']}}</label>
+                </span>
+            </div>
             @endforeach 
             @endif
-        </select>
     </div>
 </div>
 <div class="form-group">

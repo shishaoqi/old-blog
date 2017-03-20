@@ -13,7 +13,7 @@ class Role extends EntrustRole {
     }
 
     public function users() {
-        return $this->belongsToMany(AdminUsers::class, 'role_user', 'role_id', 'user_id');
+        return $this->belongsToMany(Admin::class, 'role_user', 'role_id', 'user_id');
     }
 
     //给角色添加权限

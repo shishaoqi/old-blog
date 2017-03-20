@@ -46,8 +46,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
@@ -55,19 +54,21 @@ class UserController extends Controller
             'roles' => 'required'
         ]);
 
-        $user = new Admin();
+        $admin = new Admin();
         foreach (array_keys($this->fields) as $field) {
-            $user->$field = $request->get($field);
+            $admin->$field = $request->get($field);
         }
-        if ($request->get('password') != '' && $request->get('repassword') != '' && $request->get('password') == $request->get('repassword')) {
-            $user->password = bcrypt($request->get('password'));
+        if ($request->get('password') != '' && $request->get('confirmPassword') != '' && $request->get('password') == $request->get('confirmPassword')) {
+            $admin->password = bcrypt($request->get('password'));
         } else {
-            return redirect()->back()->withErrors('密码或确认密码不能为空！');
+            return ['密码或确认密码不能为空！'];
         }
-        unset($user->roles);
-        $user->save();
-        if (is_array($request->get('roles'))) {
-            $user->giveRoleTo($request->get('roles'));
+        unset($admin->roles);
+        $admin->save();
+        
+        //$admin->attachRolesToId($request->get('roles'));
+        foreach ($request->get('roles') as $key => $roleId) {
+            $admin->attachRole($roleId);
         }
         return redirect('/admin/user')->withSuccess('添加成功！');
     }
@@ -115,22 +116,23 @@ class UserController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id) {
+    public function edit($id) 
+    {
         $admin = Admin::find((int)$id);
         if (!$admin) return redirect('/admin/user')->withErrors("找不到该用户!");
-        //dd(9);
         $roles = [];
-        /*if ($admin->roles) {
+        if ($admin->roles) {
             foreach ($admin->roles as $v) {
                 $roles[] = $v->id;
             }
-        }*/
-        $admin->roles = $roles;
+        }
+        $data['adminRole'] = $roles;
         foreach (array_keys($this->fields) as $field) {
             $data[$field] = old($field, $admin->$field);
         }
-        $data['rolesAll'] = Role::all()->toArray();
+        $data['roles'] = Role::all()->toArray();
         $data['id'] = (int)$id;
+        //dd($data);
         return view('admin.user.edit', $data);
     }
 
@@ -148,16 +150,14 @@ class UserController extends Controller
         foreach (array_keys($this->fields) as $field) {
             $admin->$field = $request->get($field);
         }
-        if ($request->get('password') != '' || $request->get('repassword') != '') {
-            if ($request->get('password') != '' && $request->get('repassword') != '' && $request->get('password') == $request->get('repassword')) {
+        if ($request->get('password') != '' || $request->get('confirmPassword') != '') {
+            if ($request->get('password') != '' && $request->get('confirmPassword') != '' && $request->get('password') == $request->get('confirmPassword')) {
                 $admin->password = bcrypt($request->get('password'));
             } else {
                 return redirect()->back()->withErrors('修改密码时,密码或确认密码不能为空！');
             }
         }
-
         unset($admin->roles);
-        
         $admin->giveRoleTo($request->get('roles',[]));
 
         return redirect('/admin/user')->withSuccess('添加成功！');
@@ -175,9 +175,9 @@ class UserController extends Controller
         if ($tag && $tag->id != 1) {
             $tag->delete();
         } else {
-            return redirect()->back()->withErrors("删除失败");
+            return ["删除失败"];
         }
 
-        return redirect()->back()->withSuccess("删除成功");
+        return ["删除成功"];
     }
 }

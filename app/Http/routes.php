@@ -63,8 +63,7 @@ Route::group(['middleware' => ['admin.auth:admin', 'menu'], 'prefix' => 'admin',
     Route::get('user/manage', ['as' => 'admin.user.manage', 'uses' => 'UserController@index']);  //用户管理
     Route::post('user/index', ['as' => 'admin.user.index', 'uses' => 'UserController@index']);
     Route::resource('user', 'UserController');
-    Route::put('user/update', ['as' => 'admin.user.edit', 'uses' => 'UserController@update']); //修改
-    Route::post('user/store', ['as' => 'admin.user.create', 'uses' => 'UserController@store']); //添加
+    
 
     //权限管理路由
     Route::get('permission/{cid}/create', ['as' => 'admin.permission.create', 'uses' => 'PermissionController@create']);
