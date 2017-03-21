@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Models\Role;
 use App\Models\Admin;
 use App\Models\Permission;
+use Entrust;
 
 class TestController extends Controller
 {
@@ -22,7 +23,8 @@ class TestController extends Controller
     }
 
     public function createRole(){
-        $owner = new Role();
+
+        /*$owner = new Role();
         $owner->name         = 'owner';
         $owner->display_name = 'Project Owner'; // optional
         $owner->description  = 'User is the owner of a given project'; // optional
@@ -34,7 +36,15 @@ class TestController extends Controller
         $admin->description  = 'User is allowed to manage and edit other users'; // optional
         //$admin->save();
 
-        dump($owner);
+        dump($owner);*/
+        $user = Admin::where('name', '=', 'shishao')->first();
+        dump($user->hasRole('管理员1'));
+        dump(Entrust::hasRole('管理员1'));
+        dump(Entrust::can('管理员2'));
+        //Both hasRole() and can() can receive an array of roles & permissions to check:
+
+        dump($user->hasRole(['管理员1', '管理员2']));       // true
+        $user->can(['edit-user', 'create-post']); // true
     }
 
     public function storeRole(){

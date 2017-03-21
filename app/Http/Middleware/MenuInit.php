@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Entrust;
 use Auth, Cache;
 
 class MenuInit
@@ -37,34 +38,30 @@ class MenuInit
         } else {
             $urlPath = $path_arr[0] . '.index';
         }
+
         //查找出所有的地址
-        $table = Cache::store('file')->rememberForever('menus', function () {
-            return \App\Models\Admin\Permission::where('name', 'LIKE', '%index')
-                ->orWhere('cid', 0)
-                ->get();
-        });
-        if(!empty($table)){
-            foreach ($table as $v) {
-                if ($v->cid == 0 || \Gate::forUser(auth('admin')->user())->check($v->name)) {
-                    if ($v->name == $urlPath) {
-                        $openArr[] = $v->id;
-                        $openArr[] = $v->cid;
-                    }
-                    $data[$v->cid][] = $v->toarray();
+        /*$menus = Cache::store('file')->rememberForever('menus', function () {
+            return \App\Models\Permission::where('name', 'LIKE', '%index')->orWhere('cid', 0)->get();
+        });*/
+        //dump(Entrust::hasRole('管理员1'));
+        //dump(Entrust::hasRole('管理员2'));
+        //$menus = \App\Models\Permission::where('name', 'LIKE', '%index')->orWhere('cid', 0)->get();
+        $menus = \App\Models\Permission::get()->toArray();
+        if(!empty($menus)){
+            foreach ($menus as $key => $v) {
+                // dump($v->name);
+                //dump(Entrust::can($v['name']));
+                //dd(Entrust::hasRole('管理员1'));
+                if (!Entrust::can($v['name'])) {
+                    unset($menus[$key]);
                 }
-            }
-            if(!empty($data[0])){
-                foreach ($data[0] as $v) {
-                    if (isset($data[$v['id']]) && is_array($data[$v['id']]) && count($data[$v['id']]) > 0) {
-                        $data['top'][] = $v;
-                    }
-                }
-                unset($data[0]);
             }
         }
+        $menus = listToTree($menus, 'id', 'cid');
+        //dd($menus);
+        //dd($openArr);
         //ation open 可以在函数中计算给他
         $data['openarr'] = array_unique($openArr);
         return $data;
-
     }
 }

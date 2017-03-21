@@ -164,15 +164,17 @@ class PermissionController extends Controller
         $child = Permission::where('cid', $id)->first();
 
         if ($child) {
-            return redirect()->back()->withErrors("请先将该权限的子权限删除后再做删除操作!");
+            return ["请先将该权限的子权限删除后再做删除操作!"];
         }
         $tag = Permission::find((int) $id);
         if ($tag) {
             $tag->delete();
         } else {
             //return redirect()->back()->withErrors("删除失败");
+            return ["删除失败"];
         }
         //Event::fire(new permChangeEvent());
         //return redirect()->back()->withSuccess("删除成功");
+        return ["删除成功"];
     }
 }

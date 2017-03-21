@@ -25,29 +25,28 @@
 
 <div class="form-group">
     <label for="tag" class="col-md-3 control-label">权限列表</label>
-</div>
-<div class="form-group">
-    <div class="form-group">
-        @if($permissionAll)
-            @foreach($permissionAll[0] as $v)
-                <div class="form-group">
-                    <label class="control-label col-md-3 all-check">{{$v['name']}}</label>
-                    <div class="col-md-8">
-                        @if(isset($permissionAll[$v['id']]))
-                            @foreach($permissionAll[$v['id']] as $vv)
-                                <div class="col-md-4" style="float:left;padding-left:20px;margin-top:8px;">
-                                    <span class="checkbox-custom checkbox-default">
-                                        <i class="fa"></i>
-                                        <input class="form-actions" id="inputChekbox{{$vv['id']}}" type="Checkbox" value="{{$vv['id']}}" name="permissions[]"@if(isset($permissions)) @if(in_array($vv['id'], $permissions)) checked @endif @endif>
-                                        <label for="inputChekbox{{$vv['id']}}">{{$vv['name']}}</label>
-                                    </span>
-                                </div>
-                            @endforeach
-                        @endif
-                    </div>
-                </div>
-            @endforeach
-        @endif
+    
+    <div class="col-md-8">
+    @if($permissionAll)
+        @foreach($permissionAll[0] as $v)
+            <div class="form-group">
+
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="inputChekbox{{$v['id']}}" value="{{$v['id']}}" name="permissions[]"@if(isset($permissions)) @if(in_array($v['id'], $permissions)) checked @endif @endif>
+                    {{$v['name']}}
+                </label>
+                @if(isset($permissionAll[$v['id']]))
+                @foreach($permissionAll[$v['id']] as $vv)
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="inputChekbox{{$vv['id']}}" value="{{$vv['id']}}" name="permissions[]"@if(isset($permissions)) @if(in_array($vv['id'], $permissions)) checked @endif @endif>
+                        {{$vv['name']}}
+                    </label>
+                @endforeach
+                @endif
+                
+            </div>
+        @endforeach
+    @endif
     </div>
 </div>
 <script>

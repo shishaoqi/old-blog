@@ -15,31 +15,12 @@ class AdminController extends Controller
 {
     public function index(){
         $admin = Auth::guard('admin')->user();
+        dd($admin);
 
         return view('admin.index.index');
     }
 
     public function check(){
-        //创建用户组#
-       /* $admin = new Role;
-        $admin->name = 'Admin124';
-        $admin->save();
-
-        $owner = new Role;
-        $owner->name = 'Owner1234';
-        $owner->save();
-
-        //创建权限# 
-        $manageUsers = new Permission;
-        $manageUsers->name = 'manage_users24';
-        $manageUsers->display_name = 'Manage Users24';
-        $manageUsers->save();
-
-        $managePosts = new Permission;
-        $managePosts->name = 'manage_posts24';
-        $managePosts->display_name = 'Manage Posts24';
-        $managePosts->save();*/
-
         $admin = Role::where('name', '=', 'admin')->first();
         //dd($admin);
         $managePosts = Permission::where('name', '=', 'create-post')->first();//->toArray

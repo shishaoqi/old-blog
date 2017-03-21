@@ -1,0 +1,44 @@
+/**
+ * /vendor/zizaco/entrust/src/Entrust/Entrust.php
+ */
+
+    /**
+     * Create the migration.
+     *
+     * @param string $name
+     *
+     * @return bool
+     */
+    protected function createMigration($rolesTable, $roleUserTable, $permissionsTable, $permissionRoleTable)
+    {
+        $migrationFile = base_path("/database/migrations")."/".date('Y_m_d_His')."_entrust_setup_tables.php";
+
+        //$userModel = Config::get('auth.providers.users.model');
+        $userModel = Config::get('auth.providers.admins.model');
+        $userModel = new $userModel;
+        $userKeyName = $userModel->getKeyName();
+        $usersTable  = $userModel->getTable();
+
+        $data = compact('rolesTable', 'roleUserTable', 'permissionsTable', 'permissionRoleTable', 'usersTable', 'userKeyName');
+
+        $output = $this->laravel->view->make('entrust::generators.migration')->with($data)->render();
+
+        if (!file_exists($migrationFile) && $fs = fopen($migrationFile, 'x')) {
+            fwrite($fs, $output);
+            fclose($fs);
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Get the currently authenticated user or null.
+     *
+     * @return Illuminate\Auth\UserInterface|null
+     */
+    public function user()
+    {
+        //return $this->app->auth->user();
+        return $this->app->auth->guard('admin')->user();
+    }

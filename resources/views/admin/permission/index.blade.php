@@ -20,21 +20,17 @@
     </div>
     
     <div class="breadcrumb-env">
-        <div class="col-md-6 text-right">
+        <ol class="breadcrumb bc-1">
             <a href="{{url('admin/permission/'.$cid.'/create')}}" class="btn btn-success btn-md" target="dialog"  width="400px"><i class="fa fa-plus-circle"></i> 添加权限 </a>
-        </div>
-
-        <div class="col-md-10">
             @if($cid==0)
-                <span style="margin:3px;" id="cid" attr="{{$cid}}" class="btn-flat text-info"> 顶级菜单</span>
+            <span style="margin:3px;" id="cid" attr="{{$cid}}" class="btn-flat text-info"> 顶级菜单</span>
             @else
-                <span style="margin:3px;" id="cid" attr="{{$cid}}" class="text-info"> {{$data->display_name}}
-                        </span>
-                <a style="margin:3px;" href="{{url('admin/permission')}}"
-                   class="btn btn-warning btn-md animation-shake reloadBtn"><i class="fa fa-mail-reply-all"></i> 返回顶级菜单
-                </a>
+            <span style="margin:3px;" id="cid" attr="{{$cid}}" class="text-info"> {{$data->display_name}} </span>
+            <a style="margin:3px;" href="{{url('admin/permission')}}"
+               class="btn btn-warning btn-md animation-shake reloadBtn"><i class="fa fa-mail-reply-all"></i> 返回顶级菜单
+            </a>
             @endif
-        </div>
+        </ol>
     </div>
         
 </div>
@@ -163,9 +159,9 @@
                         var str = '';
 
                         //下级菜单
-                        if (cid == 0) {
+                        //if (cid == 0) {
                             str += '<a style="margin:3px;"  href="{{url('admin/permission')}}/' + row['id'] + '" class="X-Small btn-xs text-success"><i class="fa fa-adn"></i>下级菜单</a>';
-                        }
+                        //}
 
                         //编辑
                         if (row_edit) {
