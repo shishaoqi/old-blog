@@ -15,7 +15,6 @@ class AdminController extends Controller
 {
     public function index(){
         $admin = Auth::guard('admin')->user();
-        dd($admin);
 
         return view('admin.index.index');
     }

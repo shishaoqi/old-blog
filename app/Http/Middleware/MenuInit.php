@@ -18,7 +18,7 @@ class MenuInit
     public function handle($request, Closure $next)
     {
         //view()->share('comData',$this->getMenu());
-        $request->attributes->set('comData_menu', $this->getMenu());
+        $request->attributes->set('left_menu', $this->getMenu());
         return $next($request);
     }
 
@@ -33,10 +33,12 @@ class MenuInit
         $data['top'] = [];
         //查找并拼接出地址的别名值
         $path_arr = explode('/', \URL::getRequest()->path());
-        if (isset($path_arr[1])) {
-            $urlPath = $path_arr[0] . '.' . $path_arr[1] . '.index';
+        if (isset($path_arr[1]) && isset($path_arr[2])) {
+            $urlPath = $path_arr[0] . '/' . $path_arr[1] . '/' . $path_arr[2];
+        } else if (isset($path_arr[1])) {
+            $urlPath = $path_arr[0] . '/' . $path_arr[1];
         } else {
-            $urlPath = $path_arr[0] . '.index';
+            $urlPath = $path_arr[0] . '/index';
         }
 
         //查找出所有的地址
@@ -57,11 +59,8 @@ class MenuInit
                 }
             }
         }
-        $menus = listToTree($menus, 'id', 'cid');
+        $menus = menuListToTree($menus, 'id', 'cid', '_child', 0, $urlPath);
         //dd($menus);
-        //dd($openArr);
-        //ation open 可以在函数中计算给他
-        $data['openarr'] = array_unique($openArr);
-        return $data;
+        return $menus;
     }
 }
