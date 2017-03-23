@@ -1,7 +1,28 @@
 <ul id="main-menu" class="main-menu">
     <!-- add class "multiple-expanded" to allow multiple submenus to open -->
     <!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
-    <li class="active opened active">
+    <?php $menus=Request::get('left_menu'); ?>
+    @foreach($menus as $v)
+    <li @if(isset($v['active'])) class="opened active" @endif>
+        <a href="dashboard-1.html">
+            <i class="linecons-cog"></i>
+            <span class="title">{{$v['display_name']}}</span>
+        </a>
+        @if(isset($v['_child']))
+        <ul>
+        @foreach($v['_child'] as $child_first)
+            <li @if(isset($child_first['active'])) class="active" @endif>
+                <a href="{{url($child_first['name'])}}">
+                    <span class="title">{{$child_first['display_name']}}</span>
+                </a>
+            </li>
+        @endforeach
+        </ul>
+        @endif
+    </li>
+    @endforeach
+
+    <!-- <li class="opened active">
         <a href="dashboard-1.html">
             <i class="linecons-cog"></i>
             <span class="title">博客管理</span>
@@ -112,5 +133,5 @@
                 </ul>
             </li>
         </ul>
-    </li>
+    </li> -->
 </ul>
