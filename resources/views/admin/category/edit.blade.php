@@ -1,4 +1,6 @@
-@extends('layouts.admin') @section('content')
+@extends('admin.layouts.admin')
+
+@section('content')
 <div class="page-title">
     <div class="title-env">
         <h1 class="title">Native Elements</h1>
@@ -100,4 +102,4 @@
         </div>
     </div>
 </div>
-@endsection
+@stop

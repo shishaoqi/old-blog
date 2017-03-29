@@ -1,4 +1,6 @@
-@extends('layouts.admin') @section('content')
+@extends('admin.layouts.admin')
+
+@section('content')
 <script type="text/javascript">
 jQuery(document).ready(function($) {
     // Notifications
@@ -929,9 +931,12 @@ function between(randNumMin, randNumMax) {
         </div>
     </div>
 </div>
+@stop
+
+@section('js')
 <!-- Imported scripts on this page -->
 <script src="{{asset('backend/js/xenon-widgets.js')}}"></script>
 <script src="{{asset('backend/js/devexpress-web-14.1/js/globalize.min.js')}}"></script>
 <script src="{{asset('backend/js/devexpress-web-14.1/js/dx.chartjs.js')}}"></script>
 <script src="{{asset('backend/js/toastr/toastr.min.js')}}"></script>
-@endsection
+@stop

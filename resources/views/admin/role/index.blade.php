@@ -1,4 +1,4 @@
-@extends('layouts.admin') 
+@extends('admin.layouts.admin') 
 
 @section('content')
 <div class="page-title">
@@ -76,16 +76,21 @@
         
     </div>
 </div>
+@stop
 
+@section('css')
+<!-- Imported styles on this page -->
+<link rel="stylesheet" href="{{asset('backend/js/datatables/dataTables.bootstrap.css')}}">
+@stop
+
+@section('js')
 <script>
-
     loadShow = function(){
         $("#loading").show();
     }
     loadFadeOut=function(){
         $("#loading").fadeOut(500);
     }
-
 
     jQuery(document).ready(function($) {
         var csrf_token = "{{csrf_token()}}";
@@ -189,9 +194,6 @@
     });
 </script>
 
-<!-- Imported styles on this page -->
-<link rel="stylesheet" href="{{asset('backend/js/datatables/dataTables.bootstrap.css')}}">
-
 <!-- Imported scripts on this page -->
 <script src="{{asset('backend/js/datatables/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('backend/js/datatables/dataTables.bootstrap.js')}}"></script>
@@ -199,8 +201,5 @@
 <script src="{{asset('backend/js/datatables/tabletools/dataTables.tableTools.min.js')}}"></script>
 <script src="{{asset('backend/js/layer/layer.js')}}"></script>
 
-
-<!-- JavaScripts initializations and stuff -->
-<script src="{{asset('backend/js/xenon-custom.js')}}"></script>
 <script src="{{asset('backend/js/core.js')}}"></script>
-@endsection
+@stop

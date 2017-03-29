@@ -1,4 +1,6 @@
-@extends('layouts.admin') @section('content')
+@extends('admin.layouts.admin')
+
+@section('content')
 <div class="page-title">
     <div class="title-env">
         <ol class="breadcrumb bc-1">
@@ -94,6 +96,9 @@
         </div>
     </div>
 </div>
+@stop
+
+@section('js')
 <script type="text/javascript">
     function showAjaxModal(id, currentObj) {
         var title = '提示';
@@ -186,4 +191,4 @@ function repeat(s, n) {
 <!-- Imported scripts on this page -->
 <script src="{{asset('backend/js/uikit/js/uikit.min.js')}}"></script>
 <script src="{{asset('backend/js/uikit/js/addons/nestable.min.js')}}"></script>
-@endsection
+@stop

@@ -1,4 +1,6 @@
-@extends('layouts.admin') @section('content')
+@extends('admin.layouts.admin')
+
+@section('content')
 <div class="page-title">
     <div class="title-env">
         <ol class="breadcrumb bc-1">
@@ -96,11 +98,12 @@
         </div>
     </div>
 </div>
+@stop
+
+@section('js')
 <!-- Imported scripts on this page -->
 <script src="{{asset('backend/js/rwd-table/js/rwd-table.min.js')}}"></script>
 <script src="{{asset('backend/js/layer/layer.js')}}"></script>
 
-<!-- JavaScripts initializations and stuff -->
-<script src="{{asset('backend/js/xenon-custom.js')}}"></script>
 <script src="{{asset('backend/js/core.js')}}"></script>
-@endsection
+@stop

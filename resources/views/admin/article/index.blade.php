@@ -1,4 +1,6 @@
-@extends('layouts.admin') @section('content')
+@extends('admin.layouts.admin')
+
+@section('content')
 <!-- Removing search and results count filter -->
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -61,6 +63,9 @@
         {!! $posts->links() !!}
     </div>
 </div>
+@stop
+
+@section('js')
 <script>
      function showAjaxDeleteModal(id, curObj) {
         var title = '提示';
@@ -98,4 +103,4 @@
         })
     }
 </script>
-@endsection
+@stop

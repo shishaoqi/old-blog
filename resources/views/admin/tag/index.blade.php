@@ -1,4 +1,6 @@
-@extends('layouts.admin') @section('content')
+@extends('admin.layouts.admin')
+
+@section('content')
 <style>
     .uk-nestable-item{
         width:220px;
@@ -102,10 +104,15 @@
         </form>
     </div>
 </div>
+@stop
 
+@section('css')
+<!-- Imported styles on this page -->
+<link rel="stylesheet" href="{{asset('backend/js/uikit/uikit.css')}}">
+@stop
 
-<script type="text/javascript">
-    
+@section('js')
+<script type="text/javascript">  
     function showAjaxAddModal(){
         var title = '提示';
         var response = $("#form-id").html();
@@ -304,9 +311,7 @@
         return a.join('');
     }
 </script>
-<!-- Imported styles on this page -->
-<link rel="stylesheet" href="{{asset('backend/js/uikit/uikit.css')}}">
 <!-- Imported scripts on this page -->
 <script src="{{asset('backend/js/uikit/js/uikit.min.js')}}"></script>
 <script src="{{asset('backend/js/uikit/js/addons/nestable.min.js')}}"></script>
-@endsection
+@stop

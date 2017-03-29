@@ -1,4 +1,6 @@
-@extends('layouts.admin') @section('content')
+@extends('admin.layouts.admin') 
+
+@section('content')
 <div class="row">
     <div class="col-sm-12">
         <div class="panel panel-default">
@@ -114,10 +116,15 @@
         </div>
     </div>
 </div>
+@stop
+
+@section('css')
 <!-- Imported styles on this page -->
 <link rel="stylesheet" href="{{asset('backend/js/multiselect/css/multi-select.css')}}" />
 <link rel="stylesheet" href="{{asset('backend/js/editormd/css/editormd.css')}}" />
+@stop
 
+@section('js')
 <!-- Imported scripts on this page -->
 <script src="{{asset('backend/js/multiselect/js/jquery.multi-select.js')}}"></script><!-- 会与editormd.js 相冲突  -->
 <script src="{{asset('backend/js/editormd/editormd.js')}}"></script>
@@ -155,4 +162,4 @@
         });
     });
 </script>
-@endsection
+@stop

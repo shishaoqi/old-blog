@@ -35,7 +35,6 @@ Route::group(['middleware' => [], 'prefix' => 'front', 'namespace' => 'Front'], 
 	Route::get('post/{id}', 'PostController@index');
 });
 
-
 //admin
 Route::get('admin/login', 'Admin\AuthController@showLoginForm');
 Route::post('admin/login', 'Admin\AuthController@login');
@@ -81,4 +80,8 @@ Route::group(['middleware' => ['admin.auth:admin', 'menu'], 'prefix' => 'admin',
     Route::put('role/update', ['as' => 'admin.role.edit', 'uses' => 'RoleController@update']); //修改
     Route::post('role/store', ['as' => 'admin.role.create', 'uses' => 'RoleController@store']); //添加
 
+    //错误日志
+    Route::get('syslog/index', ['as' => 'admin.syslog', 'uses' => function () {
+        return redirect('/admin/log-viewer');
+    }]);
 });
