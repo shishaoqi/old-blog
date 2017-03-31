@@ -3,7 +3,7 @@
  * @Author: shishaoqi
  * @Date:   2016-07-01 11:55:18
  * @Last Modified by:   shishao
- * @Last Modified time: 2016-12-19 23:07:10
+ * @Last Modified time: 2017-04-01 01:13:43
  */
 namespace App\Models;
 
@@ -30,7 +30,7 @@ class Posts extends Model
      * @return [type] [description]
      */
     public function adminUser(){
-        return $this->hasOne('App\Models\Admins','id','user_id');
+        return $this->hasOne('App\Models\Admin','id','user_id');
     }
 
     public static function test(){
