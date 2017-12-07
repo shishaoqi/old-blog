@@ -17,6 +17,11 @@ class TestController extends Controller
         return view('test.form');
     }
 
+    public function editormd()
+    {
+        return view('test.editormd');
+    }
+
     public function testValidate(Requests\FormRequest $request)
     {
         return 'success';

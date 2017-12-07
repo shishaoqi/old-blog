@@ -21,7 +21,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request){
-        $users = Admin::paginate(10);
+        $users = Admin::paginate(4);
         return view('admin.user.index')->with('users', $users);
     }
 

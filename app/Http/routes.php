@@ -16,21 +16,21 @@ Route::get('/', function () {
 	return view('welcome');
 });
 
+Route::any('form','TestController@form');
+Route::any('editormd','TestController@editormd');
 Route::any('role','TestController@createRole');
 Route::any('permission','TestController@createPermission');
 Route::any('check','TestController@check');
 Route::any('assign','TestController@assign');
 Route::any('addPermissions','TestController@addPermissions');
-Route::any('form','TestController@form');
 Route::get('selectRole','TestController@selectRole');
 Route::post('form/testValidate','TestController@testValidate');
+
+
+//定义了注册登录路由
 Route::auth();
-
-
-
 //front
 Route::group(['middleware' => [], 'prefix' => 'front', 'namespace' => 'Front'], function () {
-	//定义了注册登录路由
 	Route::get('home', 'HomeController@index');
 	Route::get('post/{id}', 'PostController@index');
 });

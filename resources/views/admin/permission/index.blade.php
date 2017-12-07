@@ -174,16 +174,16 @@
                             str += '<a style="margin:3px;" href="javascript:;"  url="{{url('admin/permission')}}/' + row['id'] + '/edit" class="X-Small btn-xs text-success" onClick="dialog($(this))" width="400px"><i class="fa fa-edit"></i> 编辑</a>';
                         }
 
-                        //删除
-                        if (row_delete) {
-                            str += '<a style="margin:3px;" href="javascript:;" data-url="{{url('admin/permission')}}/' + row['id'] + '" csrf_token="' + csrf_token + '" class="delBtn X-Small btn-xs text-danger" onClick="deleteAlert($(this))" title="确定要删除此权限？"><i class="fa fa-times-circle"></i> 删除</a>';
-                        }
+        //删除
+        if (row_delete) {
+            str += '<a style="margin:3px;" href="javascript:;" data-url="{{url('admin/permission')}}/' + row['id'] + '" csrf_token="' + csrf_token + '" class="delBtn X-Small btn-xs text-danger" onClick="deleteAlert($(this))" title="确定要删除此权限？"><i class="fa fa-times-circle"></i> 删除</a>';
+        }
 
-                        return str;
-                    }
-                }
-            ],
-        });
+        return str;
+    }
+    }
+    ],
+    });
 
         table.on('preXhr.dt', function () {
             loadShow();

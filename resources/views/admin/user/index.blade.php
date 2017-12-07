@@ -78,6 +78,8 @@
                                 </td>
                             </tr>
                             @endforeach 
+                            {{ $users->links() }}
+
                             @endif
                         </tbody>
                     </table>

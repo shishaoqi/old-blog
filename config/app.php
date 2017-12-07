@@ -158,6 +158,10 @@ return [
         Zizaco\Entrust\EntrustServiceProvider::class,//Entrust is a succinct and flexible way to add Role-based Permissions to Laravel 5
         Barryvdh\Debugbar\ServiceProvider::class,
         Arcanedev\LogViewer\LogViewerServiceProvider::class,
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+
+        LaravelChen\Editormd\EditorMdProvider::class,
+        zgldh\QiniuStorage\QiniuFilesystemServiceProvider::class,
     ],
 
     /*
